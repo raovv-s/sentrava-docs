@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#0d0b14">
+<meta name="description" content="Sentrava C2: a Go-based framework for authorized red team operations. Explore the architecture, verified capabilities, and operator documentation."><title>Sentrava C2 — Precision. Persistence. Control.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="style.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+</head><body>
+<a class="skip-link" href="#main">Skip to content</a>
+<svg class="svg-definitions" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+<symbol id="serpent" viewBox="0 0 40 40"><path d="M31 5H14L6 13v7l8 8h12v5H9l-4-5M9 35h18l7-7v-8l-8-8H14V7h17l4 5" fill="none" stroke="currentColor" stroke-width="3"/><path d="M26 12h9l-4 6" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="29" cy="9" r="1.5" fill="currentColor"/></symbol>
+<symbol id="network" viewBox="0 0 24 24"><rect x="8" y="2" width="8" height="5" rx="1"/><rect x="2" y="17" width="7" height="5" rx="1"/><rect x="15" y="17" width="7" height="5" rx="1"/><path d="M12 7v5M5.5 17v-5h13v5"/></symbol>
+<symbol id="mask" viewBox="0 0 24 24"><path d="M3 5l9 3 9-3v7c0 5-5 8-9 10-4-2-9-5-9-10V5Z"/><path d="m6 11 4 2m8-2-4 2m-5 4h6"/></symbol>
+<symbol id="shield" viewBox="0 0 24 24"><path d="m12 2 9 4v6c0 5-9 10-9 10S3 17 3 12V6l9-4Z"/><path d="m8 12 3 3 5-6"/></symbol>
+<symbol id="terminal" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="m6 9 4 3-4 3m7 1h5"/></symbol>
+<symbol id="arrows" viewBox="0 0 24 24"><path d="M3 7h17m-5-5 5 5-5 5M21 17H4m5-5-5 5 5 5"/></symbol>
+<symbol id="icon-dashboard" viewBox="0 0 24 24"><rect x="2" y="2" width="8" height="9" rx="1"/><rect x="14" y="2" width="8" height="5" rx="1"/><rect x="2" y="15" width="8" height="7" rx="1"/><rect x="14" y="11" width="8" height="11" rx="1"/></symbol>
+</defs></svg>
+<header class="site-header"><div class="nav-container">
+<a class="brand" href="index.html" aria-label="Sentrava C2 home"><svg class="brand-mark" aria-hidden="true"><use href="#serpent"/></svg><span>SENTRAVA <span class="brand-suffix">C2</span></span></a>
+<button class="menu-toggle" type="button" data-toggle aria-controls="primary-nav" aria-expanded="false" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+<nav id="primary-nav" class="primary-nav" aria-label="Primary navigation">
+<a href="dist/getting-started.html">Docs</a><a href="docs.html#transports">Transports</a><a href="docs.html#opsec">OPSEC</a><a href="docs.html#dashboard">Dashboard</a><a href="https://github.com/raovv-s/sentrava_c2">GitHub <span aria-hidden="true">↗</span></a><a class="button button-small button-primary nav-cta" href="dist/getting-started.html">Get started <span aria-hidden="true">→</span></a>
+</nav></div></header>
+<main id="main">
+<section class="hero hero-aurora" aria-labelledby="hero-title">
+<div class="hero-atmosphere" aria-hidden="true">
+  <div class="aurora-blob aurora-blob-1"></div>
+  <div class="aurora-blob aurora-blob-2"></div>
+  <div class="aurora-blob aurora-blob-3"></div>
+  <div class="aurora-blob aurora-blob-4"></div>
+  <div class="aurora-blob aurora-blob-5"></div>
+</div>
+<div class="hero-grain" aria-hidden="true"></div>
+<div class="hero-vignette" aria-hidden="true"></div>
+<button class="hero-motion-toggle" type="button" aria-pressed="false" hidden>Pause background</button>
+<div class="container hero-content">
+<p class="eyebrow"><span class="signal-dot" aria-hidden="true"></span>Go-powered red team framework</p>
+<h1 id="hero-title">Command. Control.<br><span>Stay Silent.</span></h1>
+<p class="hero-description">A Go-based command-and-control framework for authorized security operations. Certificate-bound identity, scoped operations, and an operator-first interface—engineered for precision.</p>
+<div class="button-row"><a class="button button-primary" href="dist/getting-started.html"><span aria-hidden="true">→</span> Get started</a><a class="button button-secondary" href="https://github.com/raovv-s/sentrava_c2">View on GitHub <span aria-hidden="true">↗</span></a></div>
+<ul class="badge-row" aria-label="Current platform and architecture"><li class="badge">Go 1.26.6</li><li class="badge">mTLS</li><li class="badge">Linux / amd64</li><li class="badge">Role-based access</li><li class="badge">Windows / amd64</li><li class="badge">Session + Beacon</li></ul>
+<a class="scroll-hint" href="#capabilities">Explore the framework <span aria-hidden="true">↓</span></a></div></section>
+<section class="stats-bar" aria-label="Framework at a glance"><div class="container stats-grid"><div class="stat"><strong>03</strong><span>Transports</span></div><div class="stat"><strong>05</strong><span>OPSEC Modules</span></div><div class="stat"><strong>02</strong><span>Operator Interfaces</span></div><div class="stat"><strong>01</strong><span>Web Dashboard</span></div></div></section>
+<section class="section container" id="capabilities" aria-labelledby="features-title"><div class="section-heading"><p class="eyebrow">Capability map / 01</p><h2 id="features-title">An operator’s control plane.</h2><p>Clear boundaries. Explicit permissions. Documented verification.</p></div><div class="feature-grid">
+<article class="feature-card reveal"><div class="feature-top"><svg class="feature-icon" aria-hidden="true"><use href="#network"/></svg><span class="status-label ">Supported</span></div><h3>Triple Transport</h3><p>mTLS with mutual certificate authentication, AES-256-GCM encrypted TCP, and HTTP polling with C2 profile masquerading. Each transport is independently configurable.</p><a class="text-link" href="dist/transport-mtls.html">Transport reference <span aria-hidden="true">↗</span></a></article>
+<article class="feature-card reveal"><div class="feature-top"><svg class="feature-icon" aria-hidden="true"><use href="#mask"/></svg><span class="status-label ">Supported</span></div><h3>Traffic Masquerade</h3><p>Built-in HTTP profiles that disguise beacon traffic as Microsoft Teams presence updates, Google Analytics beacons, or Cloudflare RUM telemetry. Custom profiles via YAML.</p><a class="text-link" href="dist/transport-http.html">HTTP profiles <span aria-hidden="true">↗</span></a></article>
+<article class="feature-card reveal"><div class="feature-top"><svg class="feature-icon" aria-hidden="true"><use href="#shield"/></svg><span class="status-label ">Supported</span></div><h3>5-Module OPSEC Suite</h3><p>Sleep masking with madvise anti-forensics, polymorphic config re-encryption, TLS fingerprint validator, environment guardrails, and anti-debug canary. Three presets: none, basic, full.</p><a class="text-link" href="dist/opsec-overview.html">OPSEC modules <span aria-hidden="true">↗</span></a></article>
+<article class="feature-card reveal"><div class="feature-top"><svg class="feature-icon" aria-hidden="true"><use href="#terminal"/></svg><span class="status-label ">Supported</span></div><h3>Interactive PTY Shell</h3><p>Full interactive bash shell via Linux PTY. Windows agents use one-shot exec for command output. Requires session mode. Exit with Ctrl+Q.</p><a class="text-link" href="dist/capability-shell.html">Shell capability <span aria-hidden="true">↗</span></a></article>
+<article class="feature-card reveal"><div class="feature-top"><svg class="feature-icon" aria-hidden="true"><use href="#arrows"/></svg><span class="status-label ">Supported</span></div><h3>TCP Port Forwarding</h3><p>Tunnel any TCP connection through the agent to unreachable network segments. SSH, RDP, database access — verified with live SSH tunneling through C2.</p><a class="text-link" href="dist/capability-portfwd.html">Port forwarding <span aria-hidden="true">↗</span></a></article>
+<article class="feature-card reveal"><div class="feature-top"><svg class="feature-icon" aria-hidden="true"><use href="#icon-dashboard"/></svg><span class="status-label ">Supported</span></div><h3>Operator Dashboard</h3><p>Real-time web dashboard with SSE live updates. Manage listeners, agents, sessions, tasks, and operations. Add listeners and activate agents directly from the browser.</p><a class="text-link" href="dist/dashboard-overview.html">Dashboard overview <span aria-hidden="true">↗</span></a></article>
+</div></section>
+<section class="section section-surface" aria-labelledby="quick-title"><div class="container split-layout"><div class="section-heading"><p class="eyebrow">Quick start / 02</p><h2 id="quick-title">Up and running<br>in minutes.</h2><p>Zero-flag agent deployment. Credentials embedded at build time via ldflags.</p><a class="text-link" href="dist/quick-start.html">Read the full deployment guide <span aria-hidden="true">→</span></a></div><div><div class="code-block "><div class="code-toolbar"><span>bash · quick start</span><button class="copy-button" type="button" data-copy aria-label="Copy bash · quick start">Copy</button></div><pre><code class="language-bash"># Start teamserver
+./bin/sentrava-server
+
+# Launch operator client
+./bin/sentrava-client
+
+# Create operation and generate agent
+sentrava &gt; operations create op1 --target 192.168.0.197
+sentrava &gt; generate --listener 192.168.0.199:4433
+
+# Deploy on target
+scp &lt;package&gt;/sentrava-agent user@target:~/
+# On target: ./sentrava-agent
+
+# Get a session
+sentrava &gt; sessions list
+sentrava &gt; sessions use &lt;id&gt;
+sentrava &gt; whoami</code></pre></div></div></div></section>
+<section class="section container" aria-labelledby="architecture-title"><div class="section-heading centered"><p class="eyebrow">System topology / 03</p><h2 id="architecture-title">One server. Explicit trust boundaries.</h2><p>The CLI and browser share server-side policy. The dashboard is optional.</p></div><div class="code-block architecture-block"><div class="code-toolbar"><span>architecture · supported MVP</span><button class="copy-button" type="button" data-copy aria-label="Copy architecture · supported MVP">Copy</button></div><pre><code class="language-plaintext">┌──────────────────────┐     ┌─────────────────────────┐
+│     OPERATOR CLI     │     │    WEB DASHBOARD        │
+│     CLI / REPL       │     │   Browser web session   │
+└──────────┬───────────┘     └────────────┬────────────┘
+           │ gRPC mTLS                   │ HTTPS + CSRF
+           │                             │
+┌──────────▼─────────────────────────────▼────────────┐
+│                     TEAMSERVER                      │
+│                                                     │
+│   [RBAC]  [Operations + Scope]  [Enrollment]         │
+│   [Sessions]  [Tasks + Results]  [SQLite Journal]    │
+│                                                     │
+│        mTLS listener · TCP listener · HTTP listener  │
+└────────┬───────────────────┬──────────────┬─────────┘
+         │ mTLS              │ TCP (AES-GCM) │ HTTP + C2 profile
+         │                   │               │
+┌────────▼───────────────────▼───────────────▼────────┐
+│                      AGENT                          │
+│                                                     │
+│  [Check-in]  [Exec]  [Shell/PTY]  [Port Forward]    │
+│  [Durable Results]  [OPSEC Suite]  [Process List]   │
+│                                                     │
+│            Linux / amd64  ·  Windows / amd64        │
+└─────────────────────────────────────────────────────┘</code></pre></div><div class="callout callout-info"><strong>Authorized security testing only.</strong><p>Use Sentrava only within a documented authorization boundary. Keep PKI, credentials, and test databases separate from production systems.</p></div></section>
+<section class="closing-cta container"><div><p class="eyebrow">Precision. Persistence. Control.</p><h2>Know the system.<br>Know its boundaries.</h2></div><a class="button button-primary" href="dist/getting-started.html">Open documentation <span aria-hidden="true">→</span></a></section></main><footer class="site-footer"><div class="container footer-grid">
+<div class="footer-brand"><a class="brand" href="index.html"><svg class="brand-mark" aria-hidden="true"><use href="#serpent"/></svg><span>SENTRAVA <span class="brand-suffix">C2</span></span></a><p>Precision. Persistence. Control.</p><span class="footer-note">Purpose-built for authorized security work.</span></div>
+<nav aria-label="Documentation links"><h2>Documentation</h2><a href="dist/getting-started.html">Getting started</a><a href="dist/transport-mtls.html">Transports</a><a href="dist/opsec-overview.html">OPSEC</a><a href="dist/dashboard-overview.html">Dashboard</a></nav>
+<nav aria-label="Project links"><h2>Project</h2><a href="https://github.com/raovv-s/sentrava_c2">GitHub</a><a href="https://github.com/raovv-s/sentrava_c2/releases">Releases</a><a href="https://github.com/raovv-s/sentrava_c2/commits">Change history</a><a href="https://github.com/raovv-s/sentrava_c2/blob/HEAD/LICENSE">License</a></nav>
+<nav aria-label="Team links"><h2>Team</h2><a href="docs.html#about">About the project</a><a href="https://www.holbertonschool.com/">Holberton School</a><a href="docs.html#verification">Verification</a></nav></div>
+<div class="container footer-bottom"><p>© 2026 Sentrava C2 — Built for authorized use only.</p><span class="mono">LOCAL FIRST / EXPLICIT TRUST</span></div></footer><p id="copy-feedback" class="sr-only" role="status" aria-live="polite"></p>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  window.hljs?.highlightAll();
+  const toggles = [...document.querySelectorAll('[data-toggle]')];
+  const closeMenus = () => toggles.forEach(button => {
+    button.setAttribute('aria-expanded', 'false');
+    document.getElementById(button.getAttribute('aria-controls')).classList.remove('is-open');
+  });
+  toggles.forEach(button => button.addEventListener('click', () => {
+    const expanded = button.getAttribute('aria-expanded') !== 'true';
+    button.setAttribute('aria-expanded', String(expanded));
+    document.getElementById(button.getAttribute('aria-controls')).classList.toggle('is-open', expanded);
+  }));
+  document.querySelectorAll('.primary-nav a, .sidebar-nav a').forEach(link => link.addEventListener('click', closeMenus));
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape') {
+      const activeToggle = toggles.find(button => button.getAttribute('aria-expanded') === 'true');
+      closeMenus(); activeToggle?.focus();
+    }
+  });
+  const updateHeader = () => document.querySelector('.site-header').classList.toggle('is-scrolled', scrollY > 12);
+  addEventListener('scroll', updateHeader, {passive:true}); updateHeader();
+  document.querySelectorAll('[data-copy]').forEach(button => button.addEventListener('click', async () => {
+    const text = button.closest('.code-block').querySelector('code').textContent;
+    try {
+      if (window.isSecureContext && navigator.clipboard) await navigator.clipboard.writeText(text);
+      else {
+        const field = document.createElement('textarea');
+        field.className = 'clipboard-buffer'; field.value = text; document.body.append(field); field.select();
+        let copied;
+        try { copied = document.execCommand('copy'); } finally { field.remove(); button.focus(); }
+        if (!copied) throw new Error('Copy unavailable');
+      }
+      document.getElementById('copy-feedback').textContent = 'Code copied to clipboard.';
+      button.textContent = 'Copied'; setTimeout(() => { button.textContent = 'Copy'; }, 1800);
+    } catch {
+      document.getElementById('copy-feedback').textContent = 'Copy unavailable. Select the code and copy it manually.';
+    }
+  }));
+  if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.remove('reveal-pending'); observer.unobserve(entry.target); }
+      });
+    }, {threshold:.08});
+    document.querySelectorAll('.reveal').forEach(card => { card.classList.add('reveal-pending'); observer.observe(card); });
+  }
+  const search = document.getElementById('topic-search');
+  if (search) {
+    const groups = [...document.querySelectorAll('.sidebar-nav details')];
+    search.addEventListener('input', () => {
+      const query = search.value.trim().toLowerCase(); let count = 0;
+      groups.forEach(group => {
+        let visible = 0;
+        group.querySelectorAll('a').forEach(link => {
+          const matches = (link.textContent + ' ' + group.querySelector('summary').textContent).toLowerCase().includes(query);
+          link.hidden = !matches; if (matches) { visible++; count++; }
+        });
+        group.hidden = visible === 0; if (query && visible) group.open = true;
+      });
+      document.getElementById('search-feedback').textContent = query ? count + ' matching topics' : '';
+    });
+    const links = [...document.querySelectorAll('.sidebar-nav a')];
+    const markCurrent = () => links.forEach(link => {
+      if (link.hash === (location.hash || '#requirements')) link.setAttribute('aria-current','location');
+      else link.removeAttribute('aria-current');
+    });
+    addEventListener('hashchange',markCurrent); markCurrent();
+  }
+});
+</script><script>
+(() => {
+  const hero = document.querySelector('.hero-aurora');
+  const button = hero.querySelector('.hero-motion-toggle');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const sync = () => { button.hidden = reduced.matches; };
+  button.addEventListener('click', () => {
+    const paused = button.getAttribute('aria-pressed') !== 'true';
+    button.setAttribute('aria-pressed', String(paused));
+    hero.dataset.motionPaused = String(paused);
+  });
+  reduced.addEventListener('change', sync);
+  sync();
+})();
+</script>
+</body></html>

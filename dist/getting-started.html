@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#0d1117">
+<meta name="description" content="Sentrava C2 operator documentation."><title>Getting Started — Sentrava C2 Documentation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="../style.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+<style>
+.docs-article h1{font-size:2rem;font-weight:700;margin-bottom:1rem;line-height:1.2;letter-spacing:-.03em}
+.docs-article h2{font-size:1.4rem;font-weight:600;margin-top:2rem;margin-bottom:.75rem;line-height:1.25;letter-spacing:-.02em}
+.docs-article h3{font-size:1.15rem;font-weight:600;margin-top:1.5rem;margin-bottom:.5rem;line-height:1.3;letter-spacing:-.01em}
+</style>
+</head><body class="docs-page">
+<a class="skip-link" href="#main">Skip to content</a>
+<svg class="svg-definitions" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+<symbol id="serpent" viewBox="0 0 40 40"><path d="M31 5H14L6 13v7l8 8h12v5H9l-4-5M9 35h18l7-7v-8l-8-8H14V7h17l4 5" fill="none" stroke="currentColor" stroke-width="3"/><path d="M26 12h9l-4 6" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="29" cy="9" r="1.5" fill="currentColor"/></symbol>
+<symbol id="network" viewBox="0 0 24 24"><rect x="8" y="2" width="8" height="5" rx="1"/><rect x="2" y="17" width="7" height="5" rx="1"/><rect x="15" y="17" width="7" height="5" rx="1"/><path d="M12 7v5M5.5 17v-5h13v5"/></symbol>
+<symbol id="mask" viewBox="0 0 24 24"><path d="M3 5l9 3 9-3v7c0 5-5 8-9 10-4-2-9-5-9-10V5Z"/><path d="m6 11 4 2m8-2-4 2m-5 4h6"/></symbol>
+<symbol id="shield" viewBox="0 0 24 24"><path d="m12 2 9 4v6c0 5-9 10-9 10S3 17 3 12V6l9-4Z"/><path d="m8 12 3 3 5-6"/></symbol>
+<symbol id="terminal" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="m6 9 4 3-4 3m7 1h5"/></symbol>
+<symbol id="arrows" viewBox="0 0 24 24"><path d="M3 7h17m-5-5 5 5-5 5M21 17H4m5-5-5 5 5 5"/></symbol>
+<symbol id="icon-dashboard" viewBox="0 0 24 24"><rect x="2" y="2" width="8" height="9" rx="1"/><rect x="14" y="2" width="8" height="5" rx="1"/><rect x="2" y="15" width="8" height="7" rx="1"/><rect x="14" y="11" width="8" height="11" rx="1"/></symbol>
+</defs></svg>
+<header class="site-header"><div class="nav-container">
+<a class="brand" href="../index.html" aria-label="Sentrava C2 home"><svg class="brand-mark" aria-hidden="true"><use href="#serpent"/></svg><span>SENTRAVA <span class="brand-suffix">C2</span></span></a>
+<button class="menu-toggle" type="button" data-toggle aria-controls="primary-nav" aria-expanded="false" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+<nav id="primary-nav" class="primary-nav" aria-label="Primary navigation">
+<a href="getting-started.html" aria-current="page">Docs</a><a href="transport-mtls.html">Transports</a><a href="opsec-overview.html">OPSEC</a><a href="dashboard-overview.html">Dashboard</a><a href="https://github.com/raovv-s/sentrava_c2">GitHub <span aria-hidden="true">↗</span></a><a class="button button-small button-primary nav-cta" href="quick-start.html">Get started <span aria-hidden="true">→</span></a>
+</nav></div></header>
+<div class="docs-mobile-bar"><button type="button" class="sidebar-toggle" data-toggle aria-controls="docs-sidebar" aria-expanded="false"><span aria-hidden="true">☰</span> Documentation menu</button><span class="version-label">MVP / Linux</span></div>
+<aside id="docs-sidebar" class="docs-sidebar" aria-label="Documentation navigation"><div class="sidebar-heading"><span class="eyebrow">Operator manual</span><span class="version-label">01</span></div>
+<div class="search-box"><label class="sr-only" for="topic-search">Filter documentation topics</label><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="topic-search" type="search" placeholder="Filter topics…" autocomplete="off" spellcheck="false"></div><p id="search-feedback" class="search-feedback" role="status" aria-live="polite"></p><nav class="sidebar-nav" aria-label="Topics"><details open><summary>Getting started</summary><a href="getting-started.html" aria-current="page">Overview</a><a href="installation.html">Installation</a><a href="quick-start.html">Quick start</a></details>
+<details open><summary>Transports</summary><a href="transport-mtls.html">mTLS (default)</a><a href="transport-tcp.html">TCP</a><a href="transport-http.html">HTTP + profiles</a></details>
+<details open><summary>OPSEC</summary><a href="opsec-overview.html">Overview</a><a href="opsec-modules.html">Modules</a><a href="opsec-presets.html">Presets</a></details>
+<details open><summary>Capabilities</summary><a href="capability-shell.html">Shell</a><a href="capability-portfwd.html">Port forwarding</a><a href="capability-exec.html">Exec</a><a href="capability-ps.html">Process list</a></details>
+<details open><summary>Dashboard</summary><a href="dashboard-overview.html">Overview</a><a href="dashboard-listeners.html">Listeners</a><a href="dashboard-agents.html">Agents</a><a href="dashboard-sessions.html">Sessions</a></details>
+<details open><summary>Reference</summary><a href="cli-reference.html">CLI commands</a><a href="generate-options.html">Generate options</a><a href="c2-profiles.html">C2 profiles</a></details>
+</nav><div class="sidebar-note"><span class="small-dot" aria-hidden="true"></span><p>Explicit authorization.<br>Documented boundaries.</p></div></aside>
+<main id="main" class="docs-main"><article class="docs-article"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a><span aria-hidden="true">/</span><span>Getting started</span><span aria-hidden="true">/</span><span>Getting Started</span></nav>
+<h1 id="getting-started-with-sentrava-c2">Getting Started with Sentrava C2</h1>
+<div class="callout callout-info"><strong>Authorized security testing only.</strong><p>Use Sentrava only within a documented authorization boundary. Keep test databases, PKI, and credentials separate from any existing installation.</p></div>
+
+<p>Sentrava C2 is a command-and-control framework for authorized red team operations. It provides a gRPC-based teamserver with mTLS operator authentication, an operator CLI, a web dashboard, and a configurable agent binary that embeds its credentials at compile time.</p>
+<h2 id="architecture">Architecture</h2>
+<p>The framework has four components that operate together:</p>
+<div class="table-scroll" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Binary</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Teamserver</td>
+<td><code>sentrava-server</code></td>
+<td>Hosts gRPC operator API, HTTPS dashboard, and agent listeners</td>
+</tr>
+<tr>
+<td>Operator CLI</td>
+<td><code>sentrava-client</code></td>
+<td>Interactive REPL for managing operations, agents, and sessions</td>
+</tr>
+<tr>
+<td>Agent</td>
+<td><code>sentrava-agent</code></td>
+<td>Implant binary deployed on the target; connects back to the teamserver</td>
+</tr>
+<tr>
+<td>Dashboard</td>
+<td><code>dashboard/dist/</code></td>
+<td>Web frontend served by the teamserver's HTTPS listener</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="transport-options">Transport options</h2>
+<p>Three transport layers are supported:</p>
+<ul>
+<li><strong>mTLS</strong> (default) — mutual TLS; the agent's certificate is embedded at build time and validated against server enrollment records</li>
+<li><strong>TCP</strong> — AES-256-GCM encrypted TCP; a shared key is embedded at build time</li>
+<li><strong>HTTP</strong> — AES-256-GCM encrypted HTTP polling with C2 profile masquerading</li>
+</ul>
+<h2 id="supported-platforms">Supported platforms</h2>
+<ul>
+<li><strong>Server and operator CLI:</strong> Linux/amd64</li>
+<li><strong>Agent (Linux):</strong> Linux/amd64 — fully supported, all capabilities available</li>
+<li><strong>Agent (Windows):</strong> Windows/amd64 — mTLS transport; interactive shell requires a Linux agent</li>
+</ul>
+<h2 id="how-an-operation-works">How an operation works</h2>
+<ol>
+<li>Start the teamserver; it initializes its PKI and SQLite database on first run.</li>
+<li>Connect with the operator CLI and create an operation with a target scope.</li>
+<li>Generate an agent package — the CLI compiles and signs an agent binary with embedded credentials.</li>
+<li>Deploy the agent binary to the target.</li>
+<li>The agent connects back; the server verifies enrollment; a session appears in the CLI.</li>
+<li>Run tasks against the session: <code>whoami</code>, <code>shell</code>, <code>ps</code>, <code>portfwd</code>, and more.</li>
+</ol>
+<h2 id="next-steps">Next steps</h2>
+<ul>
+<li><a href="installation.html">Installation</a> — build requirements and steps</li>
+<li><a href="quick-start.html">Quick start</a> — get a session in five minutes</li>
+<li><a href="transport-mtls.html">mTLS transport</a> — enrollment and certificate binding detail</li>
+</ul>
+<footer class="docs-footer"><span>© 2026 Sentrava C2</span><a href="https://github.com/raovv-s/sentrava_c2">Source and revision history ↗</a></footer></article></main><p id="copy-feedback" class="sr-only" role="status" aria-live="polite"></p>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  window.hljs?.highlightAll();
+  const toggles = [...document.querySelectorAll('[data-toggle]')];
+  const closeMenus = () => toggles.forEach(button => {
+    button.setAttribute('aria-expanded', 'false');
+    document.getElementById(button.getAttribute('aria-controls')).classList.remove('is-open');
+  });
+  toggles.forEach(button => button.addEventListener('click', () => {
+    const expanded = button.getAttribute('aria-expanded') !== 'true';
+    button.setAttribute('aria-expanded', String(expanded));
+    document.getElementById(button.getAttribute('aria-controls')).classList.toggle('is-open', expanded);
+  }));
+  document.querySelectorAll('.primary-nav a, .sidebar-nav a').forEach(link => link.addEventListener('click', closeMenus));
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape') {
+      const activeToggle = toggles.find(button => button.getAttribute('aria-expanded') === 'true');
+      closeMenus(); activeToggle?.focus();
+    }
+  });
+  const updateHeader = () => document.querySelector('.site-header').classList.toggle('is-scrolled', scrollY > 12);
+  addEventListener('scroll', updateHeader, {passive:true}); updateHeader();
+  document.querySelectorAll('[data-copy]').forEach(button => button.addEventListener('click', async () => {
+    const text = button.closest('.code-block').querySelector('code').textContent;
+    try {
+      if (window.isSecureContext && navigator.clipboard) await navigator.clipboard.writeText(text);
+      else {
+        const field = document.createElement('textarea');
+        field.className = 'clipboard-buffer'; field.value = text; document.body.append(field); field.select();
+        let copied;
+        try { copied = document.execCommand('copy'); } finally { field.remove(); button.focus(); }
+        if (!copied) throw new Error('Copy unavailable');
+      }
+      document.getElementById('copy-feedback').textContent = 'Code copied to clipboard.';
+      button.textContent = 'Copied'; setTimeout(() => { button.textContent = 'Copy'; }, 1800);
+    } catch {
+      document.getElementById('copy-feedback').textContent = 'Copy unavailable. Select the code and copy it manually.';
+    }
+  }));
+  if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.remove('reveal-pending'); observer.unobserve(entry.target); }
+      });
+    }, {threshold:.08});
+    document.querySelectorAll('.reveal').forEach(card => { card.classList.add('reveal-pending'); observer.observe(card); });
+  }
+  const search = document.getElementById('topic-search');
+  if (search) {
+    const groups = [...document.querySelectorAll('.sidebar-nav details')];
+    search.addEventListener('input', () => {
+      const query = search.value.trim().toLowerCase(); let count = 0;
+      groups.forEach(group => {
+        let visible = 0;
+        group.querySelectorAll('a').forEach(link => {
+          const matches = (link.textContent + ' ' + group.querySelector('summary').textContent).toLowerCase().includes(query);
+          link.hidden = !matches; if (matches) { visible++; count++; }
+        });
+        group.hidden = visible === 0; if (query && visible) group.open = true;
+      });
+      document.getElementById('search-feedback').textContent = query ? count + ' matching topics' : '';
+    });
+  }
+});
+</script>
+</body></html>
