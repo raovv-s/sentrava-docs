@@ -60,7 +60,7 @@ go build -o ./bin/sentrava-agent ./cmd/agent
 <h2 id="step-4-create-an-operation-and-generate-an-agent">Step 4 — Create an operation and generate an agent</h2>
 <p>Inside the CLI REPL:</p>
 <div class="code-block"><div class="code-toolbar"><span>code</span><button class="copy-button" type="button" data-copy aria-label="Copy code">Copy</button></div><pre><code class="language-text">sentrava &gt; operations create lab --target &lt;target-ip&gt;
-sentrava &gt; generate --listener &lt;your-ip&gt;:4433
+sentrava &gt; generate --listener TEAMSERVER_IP:4433
 </code></pre></div>
 <p><code>generate</code> compiles a configured agent binary with embedded credentials (cert, key, CA, server address, AgentID, OperationID) and writes it to a package directory. The path is printed to the console.</p>
 <h2 id="step-5-deploy-the-agent">Step 5 — Deploy the agent</h2>

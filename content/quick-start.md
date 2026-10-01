@@ -44,7 +44,7 @@ Inside the CLI REPL:
 
 ```
 sentrava > operations create lab --target <target-ip>
-sentrava > generate --listener <your-ip>:4433
+sentrava > generate --listener TEAMSERVER_IP:4433
 ```
 
 `generate` compiles a configured agent binary with embedded credentials (cert, key, CA, server address, AgentID, OperationID) and writes it to a package directory. The path is printed to the console.
