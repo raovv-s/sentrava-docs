@@ -6,6 +6,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="platform.css">
+<link rel="stylesheet" href="architecture-v2.css">
+<link rel="stylesheet" href="comparison.css">
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
 </head><body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -113,21 +116,21 @@
 <section class="section section-surface" id="platform-support" aria-labelledby="platform-matrix-title">
 <div class="container">
 <div class="section-heading"><p class="eyebrow">Platform support / 04</p><h2 id="platform-matrix-title">Linux and Windows. Same binary format.</h2><p>Cross-compiled from the same Go source. Windows agents are produced with <code>GOOS=windows CGO_ENABLED=1</code> and mingw-w64.</p></div>
-<div class="table-scroll"><table class="data-table">
-<thead><tr><th scope="col">Capability</th><th scope="col">Linux / amd64</th><th scope="col">Windows / amd64</th></tr></thead>
+<div class="table-scroll" role="region" aria-label="Platform capability comparison" tabindex="0"><table class="data-table">
+<thead><tr><th scope="col">Capability</th><th scope="col"><span class="platform-name">Linux</span><span class="platform-arch">amd64</span></th><th scope="col"><span class="platform-name">Windows</span><span class="platform-arch">amd64</span></th></tr></thead>
 <tbody>
-<tr><td>mTLS transport</td><td>✓</td><td>✓</td></tr>
-<tr><td>TCP transport</td><td>✓</td><td>✓</td></tr>
-<tr><td>HTTP + C2 profiles</td><td>✓</td><td>✓</td></tr>
-<tr><td>DNS transport</td><td>✓</td><td>✓</td></tr>
-<tr><td>Interactive PTY shell</td><td>✓ Full PTY</td><td>One-shot exec</td></tr>
-<tr><td>TCP port forwarding</td><td>✓</td><td>✓</td></tr>
-<tr><td>OPSEC modules</td><td>5 (guardrails, validator, sleepmask, canary, polymorph)</td><td>6 (etw-patch, amsi-bypass, ntdll-unhook, ppid-spoof, indirect-syscall, sleepmask-win)</td></tr>
-<tr><td>Kill Date / Working Hours</td><td>✓</td><td>✓</td></tr>
-<tr><td>Garble + XOR hardening</td><td>✓</td><td>✓</td></tr>
-<tr><td>Session + Beacon modes</td><td>✓</td><td>✓</td></tr>
-<tr><td>Process listing</td><td>✓</td><td>✓</td></tr>
-<tr><td>File system operations</td><td>✓</td><td>✓</td></tr>
+<tr><th scope="row">mTLS transport</th><td><span class="support-status"><span class="support-check" aria-hidden="true">✓</span>Supported</span></td><td><span class="support-status"><span class="support-check" aria-hidden="true">✓</span>Supported</span></td></tr>
+<tr><th scope="row">TCP transport</th><td><span class="support-status"><span class="support-check" aria-hidden="true">✓</span>Supported</span></td><td><span class="support-status"><span class="support-check" aria-hidden="true">✓</span>Supported</span></td></tr>
+<tr><th scope="row">HTTP + C2 profiles</th><td><span class="support-status"><span class="support-check" aria-hidden="true">✓</span>Supported</span></td><td><span class="support-status"><span class="support-check" aria-hidden="true">✓</span>Supported</span></td></tr>
+<tr><th scope="row">DNS transport</th><td><span class="support-status"><span class="support-check" aria-hidden="true">✓</span>Supported</span></td><td><span class="support-status"><span class="support-check" aria-hidden="true">✓</span>Supported</span></td></tr>
+<tr><th scope="row">Interactive PTY shell</th><td><span class="support-status"><span class="support-check" aria-hidden="true">✓</span>Full PTY</span></td><td><span class="support-limited">One-shot exec</span></td></tr>
+<tr><th scope="row">TCP port forwarding</th><td><span class="support-status"><span class="support-check" aria-hidden="true">✓</span>Supported</span></td><td><span class="support-status"><span class="support-check" aria-hidden="true">✓</span>Supported</span></td></tr>
+<tr><th scope="row">OPSEC modules</th><td><span class="module-count">5 modules</span><ul class="module-list"><li>guardrails</li><li>validator</li><li>sleepmask</li><li>canary</li><li>polymorph</li></ul></td><td><span class="module-count">6 modules</span><ul class="module-list"><li>etw-patch</li><li>amsi-bypass</li><li>ntdll-unhook</li><li>ppid-spoof</li><li>indirect-syscall</li><li>sleepmask-win</li></ul></td></tr>
+<tr><th scope="row">Kill Date / Working Hours</th><td><span class="support-status"><span class="support-check" aria-hidden="true">✓</span>Supported</span></td><td><span class="support-status"><span class="support-check" aria-hidden="true">✓</span>Supported</span></td></tr>
+<tr><th scope="row">Garble + XOR hardening</th><td><span class="support-status"><span class="support-check" aria-hidden="true">✓</span>Supported</span></td><td><span class="support-status"><span class="support-check" aria-hidden="true">✓</span>Supported</span></td></tr>
+<tr><th scope="row">Session + Beacon modes</th><td><span class="support-status"><span class="support-check" aria-hidden="true">✓</span>Supported</span></td><td><span class="support-status"><span class="support-check" aria-hidden="true">✓</span>Supported</span></td></tr>
+<tr><th scope="row">Process listing</th><td><span class="support-status"><span class="support-check" aria-hidden="true">✓</span>Supported</span></td><td><span class="support-status"><span class="support-check" aria-hidden="true">✓</span>Supported</span></td></tr>
+<tr><th scope="row">File system operations</th><td><span class="support-status"><span class="support-check" aria-hidden="true">✓</span>Supported</span></td><td><span class="support-status"><span class="support-check" aria-hidden="true">✓</span>Supported</span></td></tr>
 </tbody>
 </table></div>
 <p class="table-note">Windows cross-compilation requires <code>mingw-w64</code>. See the <a class="text-link" href="dist/installation.html#windows">installation guide</a> for toolchain setup.</p>
@@ -155,31 +158,46 @@ sentrava &gt; sessions use &lt;id&gt;
 sentrava &gt; whoami</code></pre></div></div></div></section>
 
 <!-- ── System topology ────────────────────────────────────── -->
-<section class="section container" aria-labelledby="architecture-title"><div class="section-heading centered"><p class="eyebrow">System topology / 06</p><h2 id="architecture-title">One server. Explicit trust boundaries.</h2><p>The CLI and browser share server-side policy. The dashboard is optional.</p></div><div class="code-block architecture-block"><div class="code-toolbar"><span>architecture · supported MVP / Linux + Windows</span><button class="copy-button" type="button" data-copy aria-label="Copy architecture · supported MVP">Copy</button></div><pre><code class="language-plaintext">┌──────────────────────┐     ┌─────────────────────────┐
-│     OPERATOR CLI     │     │    WEB DASHBOARD        │
-│     CLI / REPL       │     │   Browser web session   │
-└──────────┬───────────┘     └────────────┬────────────┘
-           │ gRPC mTLS                   │ HTTPS + CSRF
-           │                             │
-┌──────────▼─────────────────────────────▼────────────┐
-│                     TEAMSERVER                      │
-│                                                     │
-│   [RBAC]  [Operations + Scope]  [Enrollment]         │
-│   [Sessions]  [Tasks + Results]  [SQLite Journal]    │
-│                                                     │
-│  mTLS listener · TCP listener · HTTP listener       │
-│  DNS listener (UDP/53)                              │
-└──────┬────────────────┬──────────────┬──────┬───────┘
-       │ mTLS           │ TCP (AES-GCM)│ HTTP │ DNS
-       │                │              │      │
-┌──────▼────────────────▼──────────────▼──────▼───────┐
-│                      AGENT                          │
-│                                                     │
-│  [Check-in]  [Exec]  [Shell/PTY]  [Port Forward]    │
-│  [Durable Results]  [OPSEC Suite]  [Process List]   │
-│                                                     │
-│            Linux / amd64  ·  Windows / amd64        │
-└─────────────────────────────────────────────────────┘</code></pre></div><div class="callout callout-info"><strong>Authorized security testing only.</strong><p>Use Sentrava only within a documented authorization boundary. Keep PKI, credentials, and test databases separate from production systems.</p></div></section>
+<section class="section container" id="architecture" aria-labelledby="architecture-title"><div class="section-heading centered"><p class="eyebrow">System topology / 06</p><h2 id="architecture-title">One server. Explicit trust boundaries.</h2><p>The CLI and browser share server-side policy. The dashboard is optional.</p></div><figure class="topology-canvas" aria-labelledby="topology-caption">
+<figcaption id="topology-caption"><span>Inside Sentrava</span><div><small>Illustrative data flow</small><button type="button" class="topology-motion" aria-pressed="false">Pause motion</button></div></figcaption>
+<div class="topology-stage">
+<svg class="topology-wires" viewBox="0 0 1000 420" preserveAspectRatio="none" aria-hidden="true"><g class="wire-base"><path d="M210 110H290Q320 110 320 140V185Q320 210 365 210H400"/><path d="M210 310H290Q320 310 320 280V235Q320 210 365 210"/><path d="M600 210H640Q680 210 680 175V145Q680 110 720 110H790"/><path d="M600 210H640Q680 210 680 245V275Q680 310 720 310H790"/></g><g class="wire-flow"><path d="M210 110H290Q320 110 320 140V185Q320 210 365 210H400"/><path d="M210 310H290Q320 310 320 280V235Q320 210 365 210"/><path d="M600 210H640Q680 210 680 175V145Q680 110 720 110H790"/><path d="M600 210H640Q680 210 680 245V275Q680 310 720 310H790"/></g></svg>
+<div class="topology-side"><span class="topology-label">Operator interfaces</span><button class="topology-node" type="button" data-topology="cli" aria-pressed="false" aria-controls="topology-detail"><svg aria-hidden="true"><use href="#terminal"/></svg><strong>Operator CLI</strong><small>gRPC · mTLS</small></button><button class="topology-node" type="button" data-topology="dashboard" aria-pressed="false" aria-controls="topology-detail"><svg aria-hidden="true"><use href="#icon-dashboard"/></svg><strong>Web dashboard</strong><small>HTTPS · CSRF</small></button></div>
+<div class="topology-core"><span class="core-orbit" aria-hidden="true"></span><button type="button" class="core-button" data-topology="server" aria-pressed="true" aria-controls="topology-detail"><svg aria-hidden="true"><use href="#shield"/></svg><strong>Teamserver</strong><small>Policy · identity · state</small></button><span class="core-caption">One control plane.</span></div>
+<div class="topology-side"><span class="topology-label">Agent runtime</span><button class="topology-node" type="button" data-topology="linux" aria-pressed="false" aria-controls="topology-detail"><span class="platform-letter" aria-hidden="true">L</span><strong>Linux agent</strong><small>amd64 · Full PTY</small></button><button class="topology-node" type="button" data-topology="windows" aria-pressed="false" aria-controls="topology-detail"><span class="platform-letter" aria-hidden="true">W</span><strong>Windows agent</strong><small>amd64 · One-shot exec</small></button></div>
+</div>
+<div class="topology-transport"><span>Agent transports</span><b>mTLS</b><b>TCP</b><b>HTTP</b><b>DNS</b><small>Tasks ↓ &nbsp; Check-ins &amp; results ↑</small></div>
+<div id="topology-detail" class="topology-detail" aria-live="polite" aria-atomic="true"><div><span class="topology-label">Explore a component</span><h3>Teamserver</h3><p>Both operator interfaces share the same server-side policy and state.</p></div><ul><li><strong>Access &amp; scope</strong><span>RBAC, operations and target scope</span></li><li><strong>Identity &amp; sessions</strong><span>Enrollment records and agent check-ins</span></li><li><strong>Tasks &amp; storage</strong><span>Task results and the SQLite journal</span></li></ul></div>
+<p class="topology-note">Select a component to explore its role. Moving lines illustrate communication, not live traffic.</p>
+</figure>
+
+<div class="callout callout-info"><strong>Authorized security testing only.</strong><p>Use Sentrava only within a documented authorization boundary. Keep PKI, credentials, and test databases separate from production systems.</p></div></section>
+<section class="section container framework-comparison" id="comparison" aria-labelledby="comparison-title">
+<div class="section-heading"><p class="eyebrow">Framework comparison / 07</p><h2 id="comparison-title">Different frameworks.<br>Different priorities.</h2><p>Sentrava brings a CLI and browser dashboard around one policy-aware teamserver. Here is how that approach compares with Sliver, Mythic and Havoc.</p></div>
+<div class="comparison-pillars">
+<article><span>01 / WORKFLOW</span><h3>Two ways to operate.</h3><p>Use the CLI or the React dashboard. Both share server-side operation scope, identities and task state.</p></article>
+<article><span>02 / CONTROL</span><h3>Explicit boundaries.</h3><p>Agent enrollment, certificate revocation and role-based access are part of Sentrava’s documented MVP.</p></article>
+<article><span>03 / STATE</span><h3>One place for context.</h3><p>A Go teamserver and SQLite store keep operations, tasks and an event journal together.</p></article>
+</div>
+<p class="comparison-guide" id="comparison-guide">Compare the documented approaches below. On smaller screens, scroll horizontally to see every framework.</p>
+<div class="comparison-scroll" tabindex="0" role="region" aria-label="Framework comparison table" aria-describedby="comparison-guide">
+<table class="framework-table"><caption class="sr-only">Sentrava, Sliver, Mythic and Havoc: interfaces, architecture, collaboration and extension models</caption>
+<thead><tr><th scope="col">Design choice</th><th scope="col" class="comparison-featured"><span>Sentrava</span><small>Integrated control plane</small></th><th scope="col"><span>Sliver</span><small>Console-led workflow</small></th><th scope="col"><span>Mythic</span><small>Composable platform</small></th><th scope="col"><span>Havoc</span><small>Desktop workspace</small></th></tr></thead>
+<tbody>
+<tr><th scope="row">Operator interface</th><td class="comparison-featured"><strong>CLI + web dashboard</strong><span>Cobra / REPL and React</span></td><td><strong>Interactive CLI</strong><span>Separate operator clients</span></td><td><strong>React web interface</strong><span>Collaborative browser workspace</span></td><td><strong>Qt desktop client</strong><span>Session table and graph views</span></td></tr>
+<tr><th scope="row">Core architecture</th><td class="comparison-featured"><strong>Go + SQLite</strong><span>gRPC and an HTTPS dashboard gateway</span></td><td><strong>Go client / server</strong><span>Server and clients run on Linux, Windows and macOS</span></td><td><strong>Container-based services</strong><span>Go, GraphQL, PostgreSQL and RabbitMQ</span></td><td><strong>Teamserver + client</strong><span>Go server with a C++ / Qt interface</span></td></tr>
+<tr><th scope="row">Operator &amp; task context</th><td class="comparison-featured"><strong>Scoped operations</strong><span>RBAC, enrollment and task ownership checks</span></td><td><strong>Multiplayer sessions</strong><span>Operator-to-server authentication with mTLS</span></td><td><strong>Operation tracking</strong><span>Operators, task history, artifacts and shared context</span></td><td><strong>Shared teamserver</strong><span>Registered operators and an event viewer</span></td></tr>
+<tr><th scope="row">Extension approach</th><td class="comparison-featured"><strong>Source-level experimentation</strong><span>Plugins and OPSEC packages are experimental in the current MVP</span></td><td><strong>Scriptable workflows</strong><span>JavaScript / TypeScript and Python scripting</span></td><td><strong>Plug-in services</strong><span>Payload types, C2 profiles and integrations in separate containers</span></td><td><strong>Custom agents &amp; modules</strong><span>Service integration and Python API</span></td></tr>
+</tbody></table></div>
+<div class="comparison-context"><strong>What makes Sentrava’s approach distinct?</strong><p>The combination of CLI and browser access, SQLite-backed state and explicit enrollment / operation boundaries is its focus. These are design choices, not claims that other frameworks lack access control or task tracking.</p></div>
+<details class="comparison-sources"><summary>Sources &amp; comparison scope <span>Reviewed 23 October 2026</span></summary><div><p>This is a comparison of documented designs, not a performance, detection or security benchmark. Sentrava reflects its current development README; Mythic reflects the 4.0 documentation. Capabilities vary by release and installed agent. The original Havoc repository is archived.</p><ul>
+<li><a href="https://github.com/raovv-s/sentrava_c2#readme">Sentrava — project README</a>: verified MVP boundary, server and operator surfaces. The supported MVP is Linux/amd64 over enrolled mTLS; other transport and platform claims elsewhere on this site are not included in this comparison.</li>
+<li><a href="https://bishopfox.com/tools/sliver">Sliver — Bishop Fox overview</a> and <a href="https://github.com/BishopFox/sliver/wiki/Multiplayer-Mode">multiplayer documentation</a>: platforms, scripting and operator authentication.</li>
+<li><a href="https://docs.mythic-c2.net/version-4.0/home">Mythic — official 4.0 overview</a>: architecture, interface, integrations and operation context.</li>
+<li><a href="https://havocframework.com/docs/client">Havoc — client documentation</a> and <a href="https://github.com/HavocFramework/Havoc/blob/main/WIKI.MD">official repository wiki</a>: desktop interface, architecture, extension APIs and repository status.</li>
+</ul></div></details>
+</section>
+
 <section class="closing-cta container"><div><p class="eyebrow">Precision. Persistence. Control.</p><h2>Know the system.<br>Know its boundaries.</h2></div><a class="button button-primary" href="dist/getting-started.html">Open documentation <span aria-hidden="true">→</span></a></section></main><footer class="site-footer"><div class="container footer-grid">
 <div class="footer-brand"><a class="brand" href="index.html"><svg class="brand-mark" aria-hidden="true"><use href="#serpent"/></svg><span>SENTRAVA <span class="brand-suffix">C2</span></span></a><p>Precision. Persistence. Control.</p><span class="footer-note">Purpose-built for authorized security work.</span></div>
 <nav aria-label="Documentation links"><h2>Documentation</h2><a href="dist/getting-started.html">Getting started</a><a href="dist/transport-mtls.html">Transports</a><a href="dist/transport-dns.html">DNS transport</a><a href="dist/opsec-overview.html">OPSEC</a><a href="dist/opsec-windows.html">Windows OPSEC</a><a href="dist/dashboard-overview.html">Dashboard</a></nav>
@@ -271,4 +289,4 @@ document.addEventListener('DOMContentLoaded', () => {
   sync();
 })();
 </script>
-</body></html>
+<script src="site-motion.js"></script></body></html>

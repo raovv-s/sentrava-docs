@@ -1,0 +1,19 @@
+/* Scoped to the platform comparison; the rest of the site is unchanged. */
+#platform-support .table-scroll{border-color:#493037;border-radius:12px;box-shadow:0 12px 40px #00000014}
+#platform-support .data-table{table-layout:fixed;font-size:14px}
+#platform-support .data-table thead th{padding:24px;color:#f1ecee;font-size:14px;background:#231a1e;border-bottom:1px solid #57323c;vertical-align:middle}
+#platform-support .data-table thead th:first-child{width:30%;font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:#b8a6af}
+#platform-support .platform-name{display:block;font-size:23px;line-height:1.25;font-weight:600;letter-spacing:-.035em}
+#platform-support .platform-arch{display:block;margin-top:7px;color:#b89fa9;font:11px var(--code-font,monospace);letter-spacing:.04em;font-weight:400}
+#platform-support .data-table tbody th{background:transparent;color:#e6dfe3;font-size:14px;font-weight:500;letter-spacing:0;text-transform:none}
+#platform-support .data-table tbody th,#platform-support .data-table tbody td{padding:18px 24px;vertical-align:middle;border-bottom:1px solid #302329;line-height:1.6}
+#platform-support .data-table tbody tr:last-child>*{border-bottom:0}
+#platform-support .data-table tbody tr:hover{background:#25191e}
+#platform-support .support-status{display:inline-flex;align-items:center;gap:9px;color:#d6dfdb;font-size:13px;white-space:nowrap}
+#platform-support .support-check{display:inline-grid;place-items:center;width:21px;height:21px;border-radius:50%;color:#97c6af;background:#97c6af0d;border:1px solid #97c6af30;font-size:12px;line-height:1}
+#platform-support .support-limited{display:inline-flex;align-items:center;gap:8px;padding:5px 10px;border:1px solid #b99b593d;border-radius:5px;background:#b99b590a;color:#ddc28f;font-size:12px;font-weight:500}
+#platform-support .module-count{display:block;font-size:14px;font-weight:600;color:#efc4cd;margin-bottom:10px}
+#platform-support .module-list{display:flex;flex-wrap:wrap;gap:6px;list-style:none;padding:0;margin:0}
+#platform-support .module-list li{padding:3px 7px;border:1px solid #4d333c;border-radius:4px;background:#251a1f;color:#cdbac2;font:11px/1.6 var(--code-font,monospace);overflow-wrap:anywhere}
+#platform-support .table-note{font-size:12px;line-height:1.8;margin-top:20px}
+@media(max-width:700px){#platform-support .data-table{min-width:660px}#platform-support .data-table thead th{padding:19px 16px}#platform-support .data-table tbody th,#platform-support .data-table tbody td{padding:15px 16px}#platform-support .platform-name{font-size:21px}}
