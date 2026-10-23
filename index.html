@@ -17,6 +17,10 @@
 <symbol id="terminal" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="m6 9 4 3-4 3m7 1h5"/></symbol>
 <symbol id="arrows" viewBox="0 0 24 24"><path d="M3 7h17m-5-5 5 5-5 5M21 17H4m5-5-5 5 5 5"/></symbol>
 <symbol id="icon-dashboard" viewBox="0 0 24 24"><rect x="2" y="2" width="8" height="9" rx="1"/><rect x="14" y="2" width="8" height="5" rx="1"/><rect x="2" y="15" width="8" height="7" rx="1"/><rect x="14" y="11" width="8" height="11" rx="1"/></symbol>
+<symbol id="icon-dns" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c-2.5 3-4 6-4 9s1.5 6 4 9M12 3c2.5 3 4 6 4 9s-1.5 6-4 9"/></symbol>
+<symbol id="icon-win" viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></symbol>
+<symbol id="icon-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></symbol>
+<symbol id="icon-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="11" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/><circle cx="12" cy="16" r="1.5"/></symbol>
 </defs></svg>
 <header class="site-header"><div class="nav-container">
 <a class="brand" href="index.html" aria-label="Sentrava C2 home"><svg class="brand-mark" aria-hidden="true"><use href="#serpent"/></svg><span>SENTRAVA <span class="brand-suffix">C2</span></span></a>
@@ -44,15 +48,94 @@
 <ul class="badge-row" aria-label="Current platform and architecture"><li class="badge">Go 1.26.6</li><li class="badge">mTLS</li><li class="badge">DNS</li><li class="badge">Linux / amd64</li><li class="badge">Role-based access</li><li class="badge">Windows / amd64</li><li class="badge">Session + Beacon</li></ul>
 <a class="scroll-hint" href="#capabilities">Explore the framework <span aria-hidden="true">↓</span></a></div></section>
 <section class="stats-bar" aria-label="Framework at a glance"><div class="container stats-grid"><div class="stat"><strong>04</strong><span>Transports</span></div><div class="stat"><strong>11</strong><span>OPSEC Modules</span></div><div class="stat"><strong>02</strong><span>Operator Interfaces</span></div><div class="stat"><strong>01</strong><span>Web Dashboard</span></div></div></section>
-<section class="section container" id="capabilities" aria-labelledby="features-title"><div class="section-heading"><p class="eyebrow">Capability map / 01</p><h2 id="features-title">An operator’s control plane.</h2><p>Clear boundaries. Explicit permissions. Documented verification.</p></div><div class="feature-grid">
+
+<!-- ── Capability map ──────────────────────────────────────── -->
+<section class="section container" id="capabilities" aria-labelledby="features-title"><div class="section-heading"><p class="eyebrow">Capability map / 01</p><h2 id="features-title">An operator's control plane.</h2><p>Clear boundaries. Explicit permissions. Documented verification.</p></div><div class="feature-grid">
 <article class="feature-card reveal"><div class="feature-top"><svg class="feature-icon" aria-hidden="true"><use href="#network"/></svg><span class="status-label ">Supported</span></div><h3>Quad Transport</h3><p>mTLS with mutual certificate authentication, AES-256-GCM encrypted TCP, HTTP polling with C2 profile masquerading, and DNS TXT-record tunnelling. Each transport is independently configurable and embeds credentials at build time via ldflags.</p><a class="text-link" href="dist/transport-mtls.html">Transport reference <span aria-hidden="true">↗</span></a></article>
 <article class="feature-card reveal"><div class="feature-top"><svg class="feature-icon" aria-hidden="true"><use href="#mask"/></svg><span class="status-label ">Supported</span></div><h3>Traffic Masquerade</h3><p>Built-in HTTP profiles that disguise beacon traffic as Microsoft Teams presence updates, Google Analytics beacons, or Cloudflare RUM telemetry. Custom profiles via YAML.</p><a class="text-link" href="dist/transport-http.html">HTTP profiles <span aria-hidden="true">↗</span></a></article>
 <article class="feature-card reveal"><div class="feature-top"><svg class="feature-icon" aria-hidden="true"><use href="#shield"/></svg><span class="status-label ">Supported</span></div><h3>11-Module OPSEC Stack</h3><p>Linux suite: sleep masking, polymorphic re-encryption, TLS fingerprint pinning, environment guardrails, anti-debug canary. Windows suite: ETW patching, AMSI bypass, NTDLL unhooking, PPID spoofing, indirect syscalls, SleepMask. Kill Date and Working Hours lifecycle controls.</p><a class="text-link" href="dist/opsec-overview.html">OPSEC overview <span aria-hidden="true">↗</span></a></article>
 <article class="feature-card reveal"><div class="feature-top"><svg class="feature-icon" aria-hidden="true"><use href="#terminal"/></svg><span class="status-label ">Supported</span></div><h3>Interactive PTY Shell</h3><p>Full interactive bash shell via Linux PTY. Windows agents use one-shot exec for command output. Requires session mode. Exit with Ctrl+Q.</p><a class="text-link" href="dist/capability-shell.html">Shell capability <span aria-hidden="true">↗</span></a></article>
 <article class="feature-card reveal"><div class="feature-top"><svg class="feature-icon" aria-hidden="true"><use href="#arrows"/></svg><span class="status-label ">Supported</span></div><h3>TCP Port Forwarding</h3><p>Tunnel any TCP connection through the agent to unreachable network segments. SSH, RDP, database access — verified with live SSH tunneling through C2.</p><a class="text-link" href="dist/capability-portfwd.html">Port forwarding <span aria-hidden="true">↗</span></a></article>
 <article class="feature-card reveal"><div class="feature-top"><svg class="feature-icon" aria-hidden="true"><use href="#icon-dashboard"/></svg><span class="status-label ">Supported</span></div><h3>Operator Dashboard</h3><p>Real-time web dashboard with SSE live updates. Manage listeners, agents, sessions, tasks, and operations. Add listeners and activate agents directly from the browser.</p><a class="text-link" href="dist/dashboard-overview.html">Dashboard overview <span aria-hidden="true">↗</span></a></article>
+<article class="feature-card reveal"><div class="feature-top"><svg class="feature-icon" aria-hidden="true"><use href="#icon-dns"/></svg><span class="status-label ">Supported</span></div><h3>DNS Transport</h3><p>Tunnel C2 traffic over DNS TXT record queries — effective where HTTP/TCP is blocked. The agent encodes beacon data into base64-padded TXT lookups; the teamserver resolves queries via its embedded resolver on UDP/53. No external DNS provider required.</p><a class="text-link" href="dist/transport-dns.html">DNS transport docs <span aria-hidden="true">↗</span></a></article>
+<article class="feature-card reveal"><div class="feature-top"><svg class="feature-icon" aria-hidden="true"><use href="#icon-win"/></svg><span class="status-label ">Supported</span></div><h3>Windows OPSEC Suite</h3><p>Six kernel and userland modules targeting Windows telemetry: ETW patch, AMSI bypass, NTDLL unhooking from a clean on-disk copy, PPID spoofing to inherit a trusted parent, indirect syscalls via runtime trampoline, and SleepMask obfuscation during sleep intervals.</p><a class="text-link" href="dist/opsec-windows.html">Windows OPSEC docs <span aria-hidden="true">↗</span></a></article>
+<article class="feature-card reveal"><div class="feature-top"><svg class="feature-icon" aria-hidden="true"><use href="#icon-clock"/></svg><span class="status-label ">Supported</span></div><h3>Lifecycle Controls</h3><p>Kill Date forces the agent to self-terminate after a configured UTC timestamp — no operator action required. Working Hours restricts beacon callbacks to a defined daily window, reducing noise outside business hours. Both are embedded at build time via ldflags.</p><a class="text-link" href="dist/opsec-windows.html#lifecycle">Lifecycle reference <span aria-hidden="true">↗</span></a></article>
+<article class="feature-card reveal"><div class="feature-top"><svg class="feature-icon" aria-hidden="true"><use href="#icon-lock"/></svg><span class="status-label ">Supported</span></div><h3>Binary Hardening</h3><p>Garble integration rewrites symbol names, obfuscates string literals, and strips DWARF debug info at compile time. XOR obfuscation via ldflags XORs the agent's embedded server credential. The resulting binary has no visible function names, import table symbols, or plaintext strings.</p><a class="text-link" href="dist/generate-options.html#hardening">Hardening flags <span aria-hidden="true">↗</span></a></article>
 </div></section>
-<section class="section section-surface" aria-labelledby="quick-title"><div class="container split-layout"><div class="section-heading"><p class="eyebrow">Quick start / 02</p><h2 id="quick-title">Up and running<br>in minutes.</h2><p>Zero-flag agent deployment. Credentials embedded at build time via ldflags.</p><a class="text-link" href="dist/quick-start.html">Read the full deployment guide <span aria-hidden="true">→</span></a></div><div><div class="code-block "><div class="code-toolbar"><span>bash · quick start</span><button class="copy-button" type="button" data-copy aria-label="Copy bash · quick start">Copy</button></div><pre><code class="language-bash"># Start teamserver
+
+<!-- ── Transport matrix ───────────────────────────────────── -->
+<section class="section section-surface" id="transports" aria-labelledby="transport-matrix-title">
+<div class="container">
+<div class="section-heading"><p class="eyebrow">Transport matrix / 02</p><h2 id="transport-matrix-title">Four transports. One framework.</h2><p>Choose based on the target environment. All transports embed credentials at build time — zero flags on the agent binary.</p></div>
+<div class="table-scroll"><table class="data-table">
+<thead><tr><th scope="col">Transport</th><th scope="col">Auth</th><th scope="col">Encryption</th><th scope="col">Default port</th><th scope="col">Firewall evasion</th><th scope="col">Interactive shell</th><th scope="col">Bandwidth</th></tr></thead>
+<tbody>
+<tr><td><strong>mTLS</strong></td><td>Mutual certificate</td><td>TLS 1.3</td><td>4433</td><td>Low — raw TLS on non-standard port</td><td>✓ PTY (Linux)</td><td>High</td></tr>
+<tr><td><strong>TCP</strong></td><td>HMAC token</td><td>AES-256-GCM</td><td>4444</td><td>Low — raw TCP</td><td>✓ PTY (Linux)</td><td>High</td></tr>
+<tr><td><strong>HTTP</strong></td><td>Embedded token</td><td>TLS (HTTPS) + profile</td><td>443 / 80</td><td>High — mimics web traffic via C2 profiles</td><td>✓ PTY (Linux)</td><td>Medium</td></tr>
+<tr><td><strong>DNS</strong></td><td>Embedded token</td><td>Base64 payload over UDP/53</td><td>53</td><td>Very high — DNS rarely blocked egress</td><td>Limited (one-shot)</td><td>Low</td></tr>
+</tbody>
+</table></div>
+<p class="table-note">All transports support beacon and session mode. DNS interactive shell is one-shot exec; full PTY requires mTLS / TCP / HTTP. <a class="text-link" href="dist/transport-mtls.html">Transport reference <span aria-hidden="true">→</span></a></p>
+</div>
+</section>
+
+<!-- ── OPSEC stack ────────────────────────────────────────── -->
+<section class="section container" id="opsec-stack" aria-labelledby="opsec-stack-title">
+<div class="section-heading"><p class="eyebrow">OPSEC stack / 03</p><h2 id="opsec-stack-title">Eleven modules. Two platforms.</h2><p>Each module is opt-in, embedded at build time, and independently documented with ldflags and verification steps.</p></div>
+<div class="opsec-columns">
+<div class="opsec-platform">
+<h3 class="opsec-platform-label"><svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 2 7l10 5 10-5-10-5ZM2 17l10 5 10-5M2 12l10 5 10-5"/></svg> Linux <span class="opsec-count">5 modules</span></h3>
+<ul class="opsec-module-list">
+<li><span class="opsec-module-name">guardrails</span><span class="opsec-module-desc">Aborts execution if environment checks fail — wrong hostname, missing env var, UID mismatch. Prevents detonation outside the intended target.</span></li>
+<li><span class="opsec-module-name">validator</span><span class="opsec-module-desc">Validates TLS server certificate fingerprint against an embedded SHA-256 pin. Blocks MITM analysis of agent traffic in a sandbox.</span></li>
+<li><span class="opsec-module-name">sleepmask</span><span class="opsec-module-desc">XOR-encrypts the agent's heap region before sleeping and decrypts on wake. Reduces in-memory IOCs visible to YARA-based scanners during dwell time.</span></li>
+<li><span class="opsec-module-name">canary</span><span class="opsec-module-desc">Injects a synthetic debug event. If a debugger is attached, the canary fires and the agent self-terminates before executing the beacon loop.</span></li>
+<li><span class="opsec-module-name">polymorph</span><span class="opsec-module-desc">Re-encrypts embedded configuration literals on each run using a derived key. String-based signatures on the binary's data section do not persist across executions.</span></li>
+</ul>
+</div>
+<div class="opsec-platform">
+<h3 class="opsec-platform-label"><svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg> Windows <span class="opsec-count">6 modules</span></h3>
+<ul class="opsec-module-list">
+<li><span class="opsec-module-name">etw-patch</span><span class="opsec-module-desc">Patches EtwEventWrite in ntdll.dll to return immediately. Prevents ETW-based EDR telemetry from capturing agent activity, including .NET assembly loads and reflective injection.</span></li>
+<li><span class="opsec-module-name">amsi-bypass</span><span class="opsec-module-desc">Patches AmsiScanBuffer to always return AMSI_RESULT_CLEAN. Disables Windows Defender AMSI scanning for in-memory payloads executed by the agent.</span></li>
+<li><span class="opsec-module-name">ntdll-unhook</span><span class="opsec-module-desc">Replaces the in-memory ntdll.dll with a clean copy read directly from disk, removing userland hooks placed by EDR products in the syscall stubs.</span></li>
+<li><span class="opsec-module-name">ppid-spoof</span><span class="opsec-module-desc">Spawns child processes with a spoofed parent PID. Process tree analysis shows a trusted system process as parent instead of the agent, reducing behavioural detections.</span></li>
+<li><span class="opsec-module-name">indirect-syscall</span><span class="opsec-module-desc">Routes sensitive NT API calls through a runtime trampoline that jumps directly into the syscall instruction, bypassing userland hooks without calling ntdll stubs.</span></li>
+<li><span class="opsec-module-name">sleepmask-win</span><span class="opsec-module-desc">Encrypts the agent's private heap and decommits stack pages during sleep intervals. In-memory scanners operating during dwell time find no agent artefacts.</span></li>
+</ul>
+</div>
+</div>
+<p class="table-note" style="margin-top:1.5rem">All modules are enabled via <code>--opsec</code> / <code>--win-opsec</code> flags at generate time. Presets: <code>none</code> · <code>basic</code> · <code>full</code>. <a class="text-link" href="dist/opsec-overview.html">OPSEC overview <span aria-hidden="true">→</span></a></p>
+</section>
+
+<!-- ── Platform matrix ────────────────────────────────────── -->
+<section class="section section-surface" id="platform-support" aria-labelledby="platform-matrix-title">
+<div class="container">
+<div class="section-heading"><p class="eyebrow">Platform support / 04</p><h2 id="platform-matrix-title">Linux and Windows. Same binary format.</h2><p>Cross-compiled from the same Go source. Windows agents are produced with <code>GOOS=windows CGO_ENABLED=1</code> and mingw-w64.</p></div>
+<div class="table-scroll"><table class="data-table">
+<thead><tr><th scope="col">Capability</th><th scope="col">Linux / amd64</th><th scope="col">Windows / amd64</th></tr></thead>
+<tbody>
+<tr><td>mTLS transport</td><td>✓</td><td>✓</td></tr>
+<tr><td>TCP transport</td><td>✓</td><td>✓</td></tr>
+<tr><td>HTTP + C2 profiles</td><td>✓</td><td>✓</td></tr>
+<tr><td>DNS transport</td><td>✓</td><td>✓</td></tr>
+<tr><td>Interactive PTY shell</td><td>✓ Full PTY</td><td>One-shot exec</td></tr>
+<tr><td>TCP port forwarding</td><td>✓</td><td>✓</td></tr>
+<tr><td>OPSEC modules</td><td>5 (guardrails, validator, sleepmask, canary, polymorph)</td><td>6 (etw-patch, amsi-bypass, ntdll-unhook, ppid-spoof, indirect-syscall, sleepmask-win)</td></tr>
+<tr><td>Kill Date / Working Hours</td><td>✓</td><td>✓</td></tr>
+<tr><td>Garble + XOR hardening</td><td>✓</td><td>✓</td></tr>
+<tr><td>Session + Beacon modes</td><td>✓</td><td>✓</td></tr>
+<tr><td>Process listing</td><td>✓</td><td>✓</td></tr>
+<tr><td>File system operations</td><td>✓</td><td>✓</td></tr>
+</tbody>
+</table></div>
+<p class="table-note">Windows cross-compilation requires <code>mingw-w64</code>. See the <a class="text-link" href="dist/installation.html#windows">installation guide</a> for toolchain setup.</p>
+</div>
+</section>
+
+<!-- ── Quick start ────────────────────────────────────────── -->
+<section class="section section-surface" aria-labelledby="quick-title"><div class="container split-layout"><div class="section-heading"><p class="eyebrow">Quick start / 05</p><h2 id="quick-title">Up and running<br>in minutes.</h2><p>Zero-flag agent deployment. Credentials embedded at build time via ldflags.</p><a class="text-link" href="dist/quick-start.html">Read the full deployment guide <span aria-hidden="true">→</span></a></div><div><div class="code-block "><div class="code-toolbar"><span>bash · quick start</span><button class="copy-button" type="button" data-copy aria-label="Copy bash · quick start">Copy</button></div><pre><code class="language-bash"># Start teamserver
 ./bin/sentrava-server
 
 # Launch operator client
@@ -70,7 +153,9 @@ scp &lt;package&gt;/sentrava-agent user@target:~/
 sentrava &gt; sessions list
 sentrava &gt; sessions use &lt;id&gt;
 sentrava &gt; whoami</code></pre></div></div></div></section>
-<section class="section container" aria-labelledby="architecture-title"><div class="section-heading centered"><p class="eyebrow">System topology / 03</p><h2 id="architecture-title">One server. Explicit trust boundaries.</h2><p>The CLI and browser share server-side policy. The dashboard is optional.</p></div><div class="code-block architecture-block"><div class="code-toolbar"><span>architecture · supported MVP</span><button class="copy-button" type="button" data-copy aria-label="Copy architecture · supported MVP">Copy</button></div><pre><code class="language-plaintext">┌──────────────────────┐     ┌─────────────────────────┐
+
+<!-- ── System topology ────────────────────────────────────── -->
+<section class="section container" aria-labelledby="architecture-title"><div class="section-heading centered"><p class="eyebrow">System topology / 06</p><h2 id="architecture-title">One server. Explicit trust boundaries.</h2><p>The CLI and browser share server-side policy. The dashboard is optional.</p></div><div class="code-block architecture-block"><div class="code-toolbar"><span>architecture · supported MVP / Linux + Windows</span><button class="copy-button" type="button" data-copy aria-label="Copy architecture · supported MVP">Copy</button></div><pre><code class="language-plaintext">┌──────────────────────┐     ┌─────────────────────────┐
 │     OPERATOR CLI     │     │    WEB DASHBOARD        │
 │     CLI / REPL       │     │   Browser web session   │
 └──────────┬───────────┘     └────────────┬────────────┘
@@ -82,11 +167,12 @@ sentrava &gt; whoami</code></pre></div></div></div></section>
 │   [RBAC]  [Operations + Scope]  [Enrollment]         │
 │   [Sessions]  [Tasks + Results]  [SQLite Journal]    │
 │                                                     │
-│        mTLS listener · TCP listener · HTTP listener  │
-└────────┬───────────────────┬──────────────┬─────────┘
-         │ mTLS              │ TCP (AES-GCM) │ HTTP + C2 profile
-         │                   │               │
-┌────────▼───────────────────▼───────────────▼────────┐
+│  mTLS listener · TCP listener · HTTP listener       │
+│  DNS listener (UDP/53)                              │
+└──────┬────────────────┬──────────────┬──────┬───────┘
+       │ mTLS           │ TCP (AES-GCM)│ HTTP │ DNS
+       │                │              │      │
+┌──────▼────────────────▼──────────────▼──────▼───────┐
 │                      AGENT                          │
 │                                                     │
 │  [Check-in]  [Exec]  [Shell/PTY]  [Port Forward]    │

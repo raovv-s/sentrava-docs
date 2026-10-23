@@ -147,3 +147,18 @@
 
 /* Sentrava identity: traced from the supplied angular serpent mark. */
 .brand-mark{color:#edf0f3;flex-shrink:0;height:36px;width:30px}
+
+/* ── Landing page additions ─────────────────────────────── */
+.data-table{width:100%;border-collapse:collapse;font-size:.75rem;text-align:left}
+.table-note{color:var(--subtle);font-size:.72rem;margin-top:12px}
+.table-note a{color:var(--primary);text-decoration:underline;text-underline-offset:3px}
+.opsec-columns{display:grid;gap:28px}
+@media(min-width:900px){.opsec-columns{grid-template-columns:1fr 1fr}}
+.opsec-platform{border:1px solid var(--border);border-radius:var(--radius);padding:24px;background:linear-gradient(145deg,#20181b,#171214)}
+.opsec-platform-label{display:flex;align-items:center;gap:8px;font-size:.78rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#dce6ec;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--border-soft)}
+.opsec-platform-label svg{flex-shrink:0;color:var(--primary)}
+.opsec-count{margin-left:auto;font:.6rem var(--code-font);color:var(--primary);background:var(--primary-soft);border:1px solid var(--primary-border);padding:3px 7px;border-radius:4px;text-transform:none;letter-spacing:0}
+.opsec-module-list{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.opsec-module-list li{display:grid;grid-template-columns:auto 1fr;gap:0 10px;align-items:baseline}
+.opsec-module-name{font:.71rem var(--code-font);color:var(--primary);background:var(--primary-soft);border:1px solid var(--primary-border);border-radius:4px;padding:2px 7px;white-space:nowrap;align-self:start;margin-top:2px}
+.opsec-module-desc{color:var(--muted);font-size:.74rem;line-height:1.7}
