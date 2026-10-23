@@ -29,11 +29,11 @@
 <nav id="primary-nav" class="primary-nav" aria-label="Primary navigation">
 <a href="getting-started.html">Docs</a><a href="transport-mtls.html">Transports</a><a href="opsec-overview.html">OPSEC</a><a href="dashboard-overview.html">Dashboard</a><a href="https://github.com/raovv-s/sentrava_c2">GitHub <span aria-hidden="true">↗</span></a><a class="button button-small button-primary nav-cta" href="quick-start.html">Get started <span aria-hidden="true">→</span></a>
 </nav></div></header>
-<div class="docs-mobile-bar"><button type="button" class="sidebar-toggle" data-toggle aria-controls="docs-sidebar" aria-expanded="false"><span aria-hidden="true">☰</span> Documentation menu</button><span class="version-label">MVP / Linux</span></div>
+<div class="docs-mobile-bar"><button type="button" class="sidebar-toggle" data-toggle aria-controls="docs-sidebar" aria-expanded="false"><span aria-hidden="true">☰</span> Documentation menu</button><span class="version-label">MVP / Linux + Windows</span></div>
 <aside id="docs-sidebar" class="docs-sidebar" aria-label="Documentation navigation"><div class="sidebar-heading"><span class="eyebrow">Operator manual</span><span class="version-label">01</span></div>
 <div class="search-box"><label class="sr-only" for="topic-search">Filter documentation topics</label><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="topic-search" type="search" placeholder="Filter topics…" autocomplete="off" spellcheck="false"></div><p id="search-feedback" class="search-feedback" role="status" aria-live="polite"></p><nav class="sidebar-nav" aria-label="Topics"><details open><summary>Getting started</summary><a href="getting-started.html">Overview</a><a href="installation.html">Installation</a><a href="quick-start.html">Quick start</a></details>
-<details open><summary>Transports</summary><a href="transport-mtls.html">mTLS (default)</a><a href="transport-tcp.html">TCP</a><a href="transport-http.html">HTTP + profiles</a></details>
-<details open><summary>OPSEC</summary><a href="opsec-overview.html">Overview</a><a href="opsec-modules.html">Modules</a><a href="opsec-presets.html">Presets</a></details>
+<details open><summary>Transports</summary><a href="transport-mtls.html">mTLS (default)</a><a href="transport-tcp.html">TCP</a><a href="transport-http.html">HTTP + profiles</a><a href="transport-dns.html">DNS</a></details>
+<details open><summary>OPSEC</summary><a href="opsec-overview.html">Overview</a><a href="opsec-modules.html">Modules</a><a href="opsec-presets.html">Presets</a><a href="opsec-windows.html">Windows OPSEC</a></details>
 <details open><summary>Capabilities</summary><a href="capability-shell.html">Shell</a><a href="capability-portfwd.html">Port forwarding</a><a href="capability-exec.html">Exec</a><a href="capability-ps.html">Process list</a></details>
 <details open><summary>Dashboard</summary><a href="dashboard-overview.html">Overview</a><a href="dashboard-listeners.html">Listeners</a><a href="dashboard-agents.html">Agents</a><a href="dashboard-sessions.html">Sessions</a></details>
 <details open><summary>Reference</summary><a href="cli-reference.html">CLI commands</a><a href="generate-options.html" aria-current="page">Generate options</a><a href="c2-profiles.html">C2 profiles</a></details>
@@ -61,7 +61,7 @@
 <tr>
 <td><code>--transport &lt;transport&gt;</code></td>
 <td><code>mtls</code></td>
-<td>Transport: <code>mtls</code>, <code>tcp</code>, or <code>http</code></td>
+<td>Transport: <code>mtls</code>, <code>tcp</code>, <code>http</code>, or <code>dns</code></td>
 </tr>
 <tr>
 <td><code>--os &lt;os&gt;</code></td>
@@ -134,6 +134,77 @@
 </tr>
 </tbody>
 </table></div>
+<h2 id="windows-opsec-flags">Windows OPSEC flags</h2>
+<div class="table-scroll" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--win-opsec &lt;preset&gt;</code></td>
+<td><code>none</code></td>
+<td>Windows OPSEC preset: <code>none</code>, <code>basic</code>, or <code>full</code></td>
+</tr>
+<tr>
+<td><code>--win-ppid-target &lt;name&gt;</code></td>
+<td><code>explorer.exe</code></td>
+<td>Target process name for PPID spoofing</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="obfuscation-flags">Obfuscation flags</h2>
+<div class="table-scroll" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--garble</code></td>
+<td>off</td>
+<td>Compile with <a href="https://github.com/burrowers/garble">Garble</a> for symbol renaming and literal obfuscation</td>
+</tr>
+<tr>
+<td><code>--xor-obfuscate</code></td>
+<td>off</td>
+<td>Apply XOR obfuscation to embedded string literals in the agent binary via ldflags</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="lifecycle-flags">Lifecycle flags</h2>
+<div class="table-scroll" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--kill-date &lt;YYYY-MM-DD&gt;</code></td>
+<td>(none)</td>
+<td>Unix timestamp embedded; agent self-terminates after this date</td>
+</tr>
+<tr>
+<td><code>--working-hours &lt;HH:MM-HH:MM&gt;</code></td>
+<td>(none)</td>
+<td>Beacon only within this local-time window on the target</td>
+</tr>
+<tr>
+<td><code>--self-delete</code></td>
+<td>off</td>
+<td>Agent removes itself from disk on expiry (requires <code>--kill-date</code>)</td>
+</tr>
+</tbody>
+</table></div>
 <h2 id="examples">Examples</h2>
 <div class="code-block"><div class="code-toolbar"><span>sh</span><button class="copy-button" type="button" data-copy aria-label="Copy sh">Copy</button></div><pre><code class="language-sh"># Linux mTLS, beacon mode (default)
 sentrava &gt; generate --listener 192.168.1.10:4433
@@ -158,6 +229,16 @@ sentrava &gt; generate --opsec full --agent-mode session --listener 192.168.1.10
 
 # Generate without auto-activating
 sentrava &gt; generate --no-activate --listener 192.168.1.10:4433
+
+# DNS transport
+sentrava &gt; generate --transport dns --listener c2.ops.local
+
+# Windows with full OPSEC + Garble + lifecycle
+sentrava &gt; generate --os windows --opsec full --win-opsec full --garble \
+  --kill-date 2026-12-31 --working-hours 09:00-18:00 --listener 192.168.1.10:4433
+
+# XOR obfuscation on Linux agent
+sentrava &gt; generate --xor-obfuscate --listener 192.168.1.10:4433
 </code></pre></div>
 <h2 id="generated-package-contents">Generated package contents</h2>
 <div class="code-block"><div class="code-toolbar"><span>code</span><button class="copy-button" type="button" data-copy aria-label="Copy code">Copy</button></div><pre><code class="language-text">~/.local/share/sentrava/client/packages/&lt;package-id&gt;/

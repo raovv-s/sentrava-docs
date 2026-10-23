@@ -29,11 +29,11 @@
 <nav id="primary-nav" class="primary-nav" aria-label="Primary navigation">
 <a href="getting-started.html">Docs</a><a href="transport-mtls.html">Transports</a><a href="opsec-overview.html" aria-current="page">OPSEC</a><a href="dashboard-overview.html">Dashboard</a><a href="https://github.com/raovv-s/sentrava_c2">GitHub <span aria-hidden="true">↗</span></a><a class="button button-small button-primary nav-cta" href="quick-start.html">Get started <span aria-hidden="true">→</span></a>
 </nav></div></header>
-<div class="docs-mobile-bar"><button type="button" class="sidebar-toggle" data-toggle aria-controls="docs-sidebar" aria-expanded="false"><span aria-hidden="true">☰</span> Documentation menu</button><span class="version-label">MVP / Linux</span></div>
+<div class="docs-mobile-bar"><button type="button" class="sidebar-toggle" data-toggle aria-controls="docs-sidebar" aria-expanded="false"><span aria-hidden="true">☰</span> Documentation menu</button><span class="version-label">MVP / Linux + Windows</span></div>
 <aside id="docs-sidebar" class="docs-sidebar" aria-label="Documentation navigation"><div class="sidebar-heading"><span class="eyebrow">Operator manual</span><span class="version-label">01</span></div>
 <div class="search-box"><label class="sr-only" for="topic-search">Filter documentation topics</label><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="topic-search" type="search" placeholder="Filter topics…" autocomplete="off" spellcheck="false"></div><p id="search-feedback" class="search-feedback" role="status" aria-live="polite"></p><nav class="sidebar-nav" aria-label="Topics"><details open><summary>Getting started</summary><a href="getting-started.html">Overview</a><a href="installation.html">Installation</a><a href="quick-start.html">Quick start</a></details>
-<details open><summary>Transports</summary><a href="transport-mtls.html">mTLS (default)</a><a href="transport-tcp.html">TCP</a><a href="transport-http.html">HTTP + profiles</a></details>
-<details open><summary>OPSEC</summary><a href="opsec-overview.html" aria-current="page">Overview</a><a href="opsec-modules.html">Modules</a><a href="opsec-presets.html">Presets</a></details>
+<details open><summary>Transports</summary><a href="transport-mtls.html">mTLS (default)</a><a href="transport-tcp.html">TCP</a><a href="transport-http.html">HTTP + profiles</a><a href="transport-dns.html">DNS</a></details>
+<details open><summary>OPSEC</summary><a href="opsec-overview.html" aria-current="page">Overview</a><a href="opsec-modules.html">Modules</a><a href="opsec-presets.html">Presets</a><a href="opsec-windows.html">Windows OPSEC</a></details>
 <details open><summary>Capabilities</summary><a href="capability-shell.html">Shell</a><a href="capability-portfwd.html">Port forwarding</a><a href="capability-exec.html">Exec</a><a href="capability-ps.html">Process list</a></details>
 <details open><summary>Dashboard</summary><a href="dashboard-overview.html">Overview</a><a href="dashboard-listeners.html">Listeners</a><a href="dashboard-agents.html">Agents</a><a href="dashboard-sessions.html">Sessions</a></details>
 <details open><summary>Reference</summary><a href="cli-reference.html">CLI commands</a><a href="generate-options.html">Generate options</a><a href="c2-profiles.html">C2 profiles</a></details>
@@ -46,7 +46,7 @@
 <h2 id="module-categories">Module categories</h2>
 <p><strong>Pre-flight checks</strong> run before the agent begins beaconing. If a check fails and <code>KillOnDetection</code> is enabled, the agent exits immediately. By default (with <code>--opsec basic</code> or <code>--opsec full</code>), detections are logged and the agent continues.</p>
 <p><strong>Runtime protections</strong> operate during the agent's lifecycle — masking memory during sleep, validating the server's TLS certificate fingerprint, and monitoring for debugging.</p>
-<h2 id="available-modules">Available modules</h2>
+<h2 id="available-modules">Linux modules</h2>
 <div class="table-scroll" role="region" tabindex="0"><table>
 <thead>
 <tr>
@@ -83,6 +83,50 @@
 </tr>
 </tbody>
 </table></div>
+<h2 id="windows-modules">Windows modules</h2>
+<p>Windows agents support a separate OPSEC stack enabled with <code>--win-opsec</code>. These modules target the Windows detection surface and are no-ops on Linux.</p>
+<div class="table-scroll" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>Module</th>
+<th>Category</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>etw-patch</code></td>
+<td>Pre-flight</td>
+<td>Patches ETW to suppress kernel telemetry events</td>
+</tr>
+<tr>
+<td><code>amsi-bypass</code></td>
+<td>Pre-flight</td>
+<td>Patches AMSI to return AMSI_RESULT_CLEAN for all scans</td>
+</tr>
+<tr>
+<td><code>ppid-spoof</code></td>
+<td>Pre-flight</td>
+<td>Spoofs parent process ID at spawn time</td>
+</tr>
+<tr>
+<td><code>ntdll-unhook</code></td>
+<td>Pre-flight</td>
+<td>Restores ntdll.dll .text from disk to remove EDR inline hooks</td>
+</tr>
+<tr>
+<td><code>indirect-syscall</code></td>
+<td>Runtime</td>
+<td>Replaces Nt* calls with indirect syscall stubs</td>
+</tr>
+<tr>
+<td><code>sleepmask-win</code></td>
+<td>Runtime</td>
+<td>XOR-masks agent memory and flips page protection during sleep</td>
+</tr>
+</tbody>
+</table></div>
+<p>See <a href="opsec-windows.html">Windows OPSEC</a> for full per-module detail including Kill Date and Working Hours lifecycle controls.</p>
 <h2 id="presets">Presets</h2>
 <div class="code-block"><div class="code-toolbar"><span>code</span><button class="copy-button" type="button" data-copy aria-label="Copy code">Copy</button></div><pre><code class="language-text">--opsec none    No modules (default)
 --opsec basic   guardrails + validator
@@ -95,7 +139,7 @@
 # It can be set in a custom generate invocation via the underlying ldflag.
 </code></pre></div>
 <h2 id="platform-support">Platform support</h2>
-<p>All five modules are Linux-specific. Windows agents compile with stub implementations that are no-ops. The <code>sleepmask</code> memory page protection (<code>mprotect</code> + <code>madvise(MADV_DONTNEED)</code>) is Linux-only by design.</p>
+<p>The five Linux modules (<code>guardrails</code>, <code>validator</code>, <code>sleepmask</code>, <code>canary</code>, <code>polymorph</code>) are Linux-specific; they compile to no-ops on Windows. The six Windows OPSEC modules (<code>etw-patch</code>, <code>amsi-bypass</code>, <code>ntdll-unhook</code>, <code>ppid-spoof</code>, <code>indirect-syscall</code>, <code>sleepmask-win</code>) are Windows-specific and compile to no-ops on Linux. Use <code>--opsec</code> for the Linux stack and <code>--win-opsec</code> for the Windows stack; both flags are combinable on a single generate invocation.</p>
 <h2 id="how-modules-are-registered">How modules are registered</h2>
 <p>Modules are registered in the agent's capability registry only when their corresponding flag is <code>true</code>. The registration happens in <code>main()</code> before <code>core.New()</code>, so the ordering is deterministic regardless of Go package init ordering.</p>
 <footer class="docs-footer"><span>© 2026 Sentrava C2</span><a href="https://github.com/raovv-s/sentrava_c2">Source and revision history ↗</a></footer></article></main><p id="copy-feedback" class="sr-only" role="status" aria-live="polite"></p>

@@ -29,11 +29,11 @@
 <nav id="primary-nav" class="primary-nav" aria-label="Primary navigation">
 <a href="getting-started.html">Docs</a><a href="transport-mtls.html">Transports</a><a href="opsec-overview.html">OPSEC</a><a href="dashboard-overview.html">Dashboard</a><a href="https://github.com/raovv-s/sentrava_c2">GitHub <span aria-hidden="true">↗</span></a><a class="button button-small button-primary nav-cta" href="quick-start.html">Get started <span aria-hidden="true">→</span></a>
 </nav></div></header>
-<div class="docs-mobile-bar"><button type="button" class="sidebar-toggle" data-toggle aria-controls="docs-sidebar" aria-expanded="false"><span aria-hidden="true">☰</span> Documentation menu</button><span class="version-label">MVP / Linux</span></div>
+<div class="docs-mobile-bar"><button type="button" class="sidebar-toggle" data-toggle aria-controls="docs-sidebar" aria-expanded="false"><span aria-hidden="true">☰</span> Documentation menu</button><span class="version-label">MVP / Linux + Windows</span></div>
 <aside id="docs-sidebar" class="docs-sidebar" aria-label="Documentation navigation"><div class="sidebar-heading"><span class="eyebrow">Operator manual</span><span class="version-label">01</span></div>
 <div class="search-box"><label class="sr-only" for="topic-search">Filter documentation topics</label><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="topic-search" type="search" placeholder="Filter topics…" autocomplete="off" spellcheck="false"></div><p id="search-feedback" class="search-feedback" role="status" aria-live="polite"></p><nav class="sidebar-nav" aria-label="Topics"><details open><summary>Getting started</summary><a href="getting-started.html">Overview</a><a href="installation.html">Installation</a><a href="quick-start.html">Quick start</a></details>
-<details open><summary>Transports</summary><a href="transport-mtls.html">mTLS (default)</a><a href="transport-tcp.html">TCP</a><a href="transport-http.html">HTTP + profiles</a></details>
-<details open><summary>OPSEC</summary><a href="opsec-overview.html">Overview</a><a href="opsec-modules.html">Modules</a><a href="opsec-presets.html" aria-current="page">Presets</a></details>
+<details open><summary>Transports</summary><a href="transport-mtls.html">mTLS (default)</a><a href="transport-tcp.html">TCP</a><a href="transport-http.html">HTTP + profiles</a><a href="transport-dns.html">DNS</a></details>
+<details open><summary>OPSEC</summary><a href="opsec-overview.html">Overview</a><a href="opsec-modules.html">Modules</a><a href="opsec-presets.html" aria-current="page">Presets</a><a href="opsec-windows.html">Windows OPSEC</a></details>
 <details open><summary>Capabilities</summary><a href="capability-shell.html">Shell</a><a href="capability-portfwd.html">Port forwarding</a><a href="capability-exec.html">Exec</a><a href="capability-ps.html">Process list</a></details>
 <details open><summary>Dashboard</summary><a href="dashboard-overview.html">Overview</a><a href="dashboard-listeners.html">Listeners</a><a href="dashboard-agents.html">Agents</a><a href="dashboard-sessions.html">Sessions</a></details>
 <details open><summary>Reference</summary><a href="cli-reference.html">CLI commands</a><a href="generate-options.html">Generate options</a><a href="c2-profiles.html">C2 profiles</a></details>
@@ -86,6 +86,38 @@ sentrava &gt; generate --opsec full --agent-mode session --os windows --arch amd
 # Basic OPSEC with HTTP transport and profile
 sentrava &gt; generate --opsec basic --transport http --profile teams-http --listener &lt;ip&gt;:8888
 </code></pre></div>
+<h2 id="windows-presets">Windows OPSEC presets</h2>
+<p>Windows agents have a separate preset flag <code>--win-opsec</code> that controls the Windows OPSEC stack. Both <code>--opsec</code> and <code>--win-opsec</code> can be combined in a single generate invocation.</p>
+<div class="table-scroll" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>Preset</th>
+<th>Modules enabled</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--win-opsec none</code></td>
+<td>None (default)</td>
+</tr>
+<tr>
+<td><code>--win-opsec basic</code></td>
+<td>amsi-bypass, etw-patch</td>
+</tr>
+<tr>
+<td><code>--win-opsec full</code></td>
+<td>ntdll-unhook, amsi-bypass, etw-patch, ppid-spoof, indirect-syscall, sleepmask-win</td>
+</tr>
+</tbody>
+</table></div>
+<div class="code-block"><div class="code-toolbar"><span>sh</span><button class="copy-button" type="button" data-copy aria-label="Copy sh">Copy</button></div><pre><code class="language-sh"># Full Linux + full Windows OPSEC on a Windows agent
+sentrava &gt; generate --os windows --opsec full --win-opsec full --listener &lt;ip&gt;:4433
+
+# Lifecycle: Kill Date + Working Hours (apply to any OS)
+sentrava &gt; generate --os windows --win-opsec full \
+  --kill-date 2026-12-31 --working-hours 09:00-18:00 --listener &lt;ip&gt;:4433
+</code></pre></div>
+
 <h2 id="important-notes">Important notes</h2>
 <ul>
 <li><strong>Presets are applied at compile time.</strong> Changing OPSEC settings requires regenerating the agent.</li>

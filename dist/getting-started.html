@@ -29,11 +29,11 @@
 <nav id="primary-nav" class="primary-nav" aria-label="Primary navigation">
 <a href="getting-started.html" aria-current="page">Docs</a><a href="transport-mtls.html">Transports</a><a href="opsec-overview.html">OPSEC</a><a href="dashboard-overview.html">Dashboard</a><a href="https://github.com/raovv-s/sentrava_c2">GitHub <span aria-hidden="true">↗</span></a><a class="button button-small button-primary nav-cta" href="quick-start.html">Get started <span aria-hidden="true">→</span></a>
 </nav></div></header>
-<div class="docs-mobile-bar"><button type="button" class="sidebar-toggle" data-toggle aria-controls="docs-sidebar" aria-expanded="false"><span aria-hidden="true">☰</span> Documentation menu</button><span class="version-label">MVP / Linux</span></div>
+<div class="docs-mobile-bar"><button type="button" class="sidebar-toggle" data-toggle aria-controls="docs-sidebar" aria-expanded="false"><span aria-hidden="true">☰</span> Documentation menu</button><span class="version-label">MVP / Linux + Windows</span></div>
 <aside id="docs-sidebar" class="docs-sidebar" aria-label="Documentation navigation"><div class="sidebar-heading"><span class="eyebrow">Operator manual</span><span class="version-label">01</span></div>
 <div class="search-box"><label class="sr-only" for="topic-search">Filter documentation topics</label><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="topic-search" type="search" placeholder="Filter topics…" autocomplete="off" spellcheck="false"></div><p id="search-feedback" class="search-feedback" role="status" aria-live="polite"></p><nav class="sidebar-nav" aria-label="Topics"><details open><summary>Getting started</summary><a href="getting-started.html" aria-current="page">Overview</a><a href="installation.html">Installation</a><a href="quick-start.html">Quick start</a></details>
-<details open><summary>Transports</summary><a href="transport-mtls.html">mTLS (default)</a><a href="transport-tcp.html">TCP</a><a href="transport-http.html">HTTP + profiles</a></details>
-<details open><summary>OPSEC</summary><a href="opsec-overview.html">Overview</a><a href="opsec-modules.html">Modules</a><a href="opsec-presets.html">Presets</a></details>
+<details open><summary>Transports</summary><a href="transport-mtls.html">mTLS (default)</a><a href="transport-tcp.html">TCP</a><a href="transport-http.html">HTTP + profiles</a><a href="transport-dns.html">DNS</a></details>
+<details open><summary>OPSEC</summary><a href="opsec-overview.html">Overview</a><a href="opsec-modules.html">Modules</a><a href="opsec-presets.html">Presets</a><a href="opsec-windows.html">Windows OPSEC</a></details>
 <details open><summary>Capabilities</summary><a href="capability-shell.html">Shell</a><a href="capability-portfwd.html">Port forwarding</a><a href="capability-exec.html">Exec</a><a href="capability-ps.html">Process list</a></details>
 <details open><summary>Dashboard</summary><a href="dashboard-overview.html">Overview</a><a href="dashboard-listeners.html">Listeners</a><a href="dashboard-agents.html">Agents</a><a href="dashboard-sessions.html">Sessions</a></details>
 <details open><summary>Reference</summary><a href="cli-reference.html">CLI commands</a><a href="generate-options.html">Generate options</a><a href="c2-profiles.html">C2 profiles</a></details>
@@ -82,12 +82,13 @@
 <li><strong>mTLS</strong> (default) — mutual TLS; the agent's certificate is embedded at build time and validated against server enrollment records</li>
 <li><strong>TCP</strong> — AES-256-GCM encrypted TCP; a shared key is embedded at build time</li>
 <li><strong>HTTP</strong> — AES-256-GCM encrypted HTTP polling with C2 profile masquerading</li>
+<li><strong>DNS</strong> — AES-256-GCM encrypted DNS TXT-record tunnelling; highest firewall evasion, lowest bandwidth</li>
 </ul>
 <h2 id="supported-platforms">Supported platforms</h2>
 <ul>
 <li><strong>Server and operator CLI:</strong> Linux/amd64</li>
 <li><strong>Agent (Linux):</strong> Linux/amd64 — fully supported, all capabilities available</li>
-<li><strong>Agent (Windows):</strong> Windows/amd64 — mTLS transport; interactive shell requires a Linux agent</li>
+<li><strong>Agent (Windows):</strong> Windows/amd64 — all four transports (mTLS, TCP, HTTP, DNS); interactive shell not available; Windows OPSEC stack available via <code>--win-opsec</code></li>
 </ul>
 <h2 id="how-an-operation-works">How an operation works</h2>
 <ol>
@@ -103,6 +104,7 @@
 <li><a href="installation.html">Installation</a> — build requirements and steps</li>
 <li><a href="quick-start.html">Quick start</a> — get a session in five minutes</li>
 <li><a href="transport-mtls.html">mTLS transport</a> — enrollment and certificate binding detail</li>
+<li><a href="opsec-windows.html">Windows OPSEC</a> — ETW, AMSI, NTDLL unhooking, indirect syscalls, Kill Date, Working Hours</li>
 </ul>
 <footer class="docs-footer"><span>© 2026 Sentrava C2</span><a href="https://github.com/raovv-s/sentrava_c2">Source and revision history ↗</a></footer></article></main><p id="copy-feedback" class="sr-only" role="status" aria-live="polite"></p>
 <script>
